@@ -26,6 +26,8 @@ import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.utils.CommomAPIFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -98,7 +100,8 @@ public class Adapter_Rent_vehicle extends RecyclerView.Adapter<Adapter_Rent_vehi
             view.date.setText(ago);
         } catch (ParseException e) { e.printStackTrace(); }
         view.title.setText(model.getTitle());
-        view.cost.setText("$"+model.getCost());
+        DecimalFormat f = new DecimalFormat("#,###.##");
+        view.cost.setText("$ "+f.format(Double.parseDouble(model.getCost())));
         Glide.with(mContext).load(model.getFront_image_path()).apply(new RequestOptions().placeholder(R.drawable.no_image_available)).into(view.imageView);
         if (model.getPost_type().equals("sell")){
             view.item_type.setText(R.string.sell_t);

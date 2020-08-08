@@ -39,21 +39,22 @@
 
                 <ImageView
                     android:id="@+id/search_homepage"
-                    android:layout_width="24.74dp"
-                    android:layout_height="24.74dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_gravity="end"
                     android:layout_marginEnd="18.27dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/loupe" />
             </androidx.appcompat.widget.Toolbar>
+
             <ImageView
-                android:layout_width="110.51dp"
-                android:layout_height="27.17dp"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
                 android:layout_alignParentStart="true"
+                android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
-                android:paddingEnd="40dp"
                 android:layout_marginStart="5dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/new_logo_app" />
         </RelativeLayout>
 

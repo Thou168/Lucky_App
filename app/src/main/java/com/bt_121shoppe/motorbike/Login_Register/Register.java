@@ -178,8 +178,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
     private String FCM_API="https://fcm.googleapis.com/fcm/send";
     private String serverKey="key=AAAAc-OYK_o:APA91bFUyiHEPdYUjVatqxaVzfLPwVcd090bMY5emPPh-ubQtu76mEDAdmthgR03jYwhClbDqy0lqbSr_HAAvD0vnTqigM16YH4x-Xr1TMb3q_sz9PLtjNLpfnLi6NdCI-v6dyX6-5jB";
     private String contentType = "application/json";
-    private  Intent intent;
-
+    Intent intent;
+    String from_profile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -229,6 +229,7 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         mProgress.setIndeterminate(true);
 
         intent = getIntent();
+
         register_verify = intent.getStringExtra("Register_verify");
         Log.e("verify",""+register_verify);
         edit_profile = intent.getStringExtra("edit_profile");
@@ -287,6 +288,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         }else {
             editPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             editComfirmPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            editPassword.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(6)});
+            editComfirmPass.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(6)});
             tv_wing_account.setVisibility(View.VISIBLE);
             editWing_account.setVisibility(View.VISIBLE);
             wing_account_alert.setVisibility(View.VISIBLE);
@@ -371,17 +374,18 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mProfile!=null){
-//                    Intent intent = new Intent(Register.this, SelectUserTypeActivity.class);
-//                    intent.putExtra("Register_verify",register_verify);
-//                    startActivity(intent);
-                    finish();
-                }else if (pk != 0){
-                    startActivity(new Intent(Register.this, AccountSettingActivity.class));
-                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
-                }else {
-                    finish();
-                }
+//                if (mProfile!=null){
+////                    Intent intent = new Intent(Register.this, SelectUserTypeActivity.class);
+////                    intent.putExtra("Register_verify",register_verify);
+////                    startActivity(intent);
+//                    finish();
+//                }else if (pk != 0){
+//                    startActivity(new Intent(Register.this, AccountSettingActivity.class));
+//                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
+//                }else {
+//                    finish();
+//                }
+                onBackPressed();
             }
         });
         imgProfile.setOnClickListener(new View.OnClickListener() {
@@ -693,13 +697,20 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
 //        }else {
 //            finish();
 //        }
+        Intent i = getIntent();
+        from_profile=i.getStringExtra("from_profile");
+
         if (mProfile!=null){
 //            Intent intent = new Intent(Register.this, SelectUserTypeActivity.class);
 //            intent.putExtra("Register_verify",register_verify);
 //            startActivity(intent);
             finish();
         }else if (pk != 0){
-            startActivity(new Intent(Register.this, AccountSettingActivity.class));
+            if (from_profile!=null){
+                startActivity(new Intent(Register.this, Account.class));
+            }else {
+                startActivity(new Intent(Register.this, AccountSettingActivity.class));
+            }
             overridePendingTransition(R.anim.left_in, R.anim.right_out);
         }else {
             finish();

@@ -34,11 +34,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.card.MaterialCardView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -157,8 +160,11 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
 
         view.imgUserProfile.setVisibility(View.GONE);
 //End
+        DecimalFormat f = new DecimalFormat("#,###.##");
+        String NoDc,HaveDc,Price_Full_dis;
         if (model.getDiscount().equals("0.00")){
-            view.cost.setText("$"+model.getCost());
+            NoDc = NumberFormat.getNumberInstance(Locale.US).format(Double.parseDouble(model.getCost()));
+            view.cost.setText("$ "+NoDc);
 //            rs_price = Double.parseDouble(model.getCost());
             view.txt_discount.setVisibility(View.GONE);
         }else {
@@ -170,10 +176,13 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
 //                rs_price = rs_price - per;
 //            }
             double result = rs_price - Double.parseDouble(model.getCost()) *( Double.parseDouble(model.getDiscount())/100);
-            view.cost.setText("$"+String.format("%.2f", result));
+//            view.cost.setText("$ "+String.format("%.2f", result));
+            HaveDc = NumberFormat.getNumberInstance(Locale.US).format(result);
+            view.cost.setText("$ "+HaveDc);
             view.txt_discount.setVisibility(View.VISIBLE);
             double co_price = Double.parseDouble(model.getCost());
-            view.txt_discount.setText("$"+co_price);
+            Price_Full_dis = NumberFormat.getNumberInstance(Locale.US).format(co_price);
+            view.txt_discount.setText("$ "+Price_Full_dis);
             view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 

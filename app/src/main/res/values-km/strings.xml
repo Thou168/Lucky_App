@@ -642,6 +642,13 @@
     <string name="fb_login_protocol_scheme">fb596607940863011</string>
     <string name="missing_image">សូមជ្រើសរើសរូបភាព</string>
     <string name="missing_color">សូមជ្រើសរើសពណ៌</string>
+    <string name="missing_price">សូមជ្រើសរើសតម្លៃ</string>
+    <string name="missing_post_type">សូមជ្រើសរើសប្រភេទប្រកាស</string>
+    <string name="missing_type">សូមជ្រើសរើសប្រភេទ</string>
+    <string name="missing_type_cate">សូមជ្រើសរើសប្រភេទ</string>
+    <string name="missing_brand">សូមជ្រើសរើសម៉ាក</string>
+    <string name="missing_model">សូមជ្រើសរើសម៉ូដែល</string>
+    <string name="missing_year">សូមជ្រើសរើសឆ្នាំ</string>
     <string name="title_unlike">លុបផលិតផលរក្សាទុក</string>
     <string name="unlike_message">តើអ្នកប្រាកដជាលុបចេញនូវផលិតផលរក្សាទុកនេះ?</string>
     <string name="like_post">អ្នកចូលចិត្តការប្រកាសនេះ</string>
@@ -724,6 +731,8 @@
     //change password
     <string name="title_change_password">ផ្លាស់ប្តូរលេខសម្ងាត់</string>
     <string name="success_change_password">លេខសម្ងាត់របស់លោក-អ្នកត្រូវបានកែប្រែ</string>
+    <string name="title_change_password_fail">ការផ្លាស់ប្តូរលេខសម្ងាត់របស់អ្នកខុស</string>
+    <string name="this_is_your_old_pass">នេះគឺជាពាក្យសម្ងាត់ចាស់របស់អ្នក!</string>
     <string name="fail_change_password">ការផ្លាស់ប្តូរពាក្យសម្ងាត់របស់លោក-អ្នកមិនជោគជ័យទេ</string>
     <string name="alert_wrong_password">ពាក្យសំងាត់​ខុស។</string>
     <string name="alert_old_password">សូមបញ្ចូលពាក្យសម្ងាត់ចាស់របស់អ្នក។</string>
@@ -745,6 +754,13 @@
         <string name="front_and_rear_wheel_sets">សំណុំកង់មុខ និងក្រោយ</string>
         <string name="The_whole_screw">ខ្ចៅទាំងមូល</string>
         <string name="Front_and_rear_pumps">បូមខាងមុខ និងខាងក្រោយ</string>
+
+    //take pic message
+    <string name="take_pic_front">ថតពីមុខ</string>
+    <string name="take_pic_right">ថតផ្នែកខាងស្តាំ</string>
+    <string name="take_pic_left">ថតផ្នែកខាងឆ្វេង</string>
+    <string name="take_pic_back">ថតពីក្រោយ</string>
+    <string name="take_pic_somewhere">ផ្នែកផ្សេងទៀត</string>
 
     <string name="machine_section">II. ផ្នែកម៉ាស៊ីន</string>
         <string name="Left_and_right_engine_counter">កាទែរម៉ាស៊ីនឆ្វេង និងស្តាំ</string>
@@ -970,7 +986,7 @@
     <string name="invalid_province">សូមជ្រើសរើសខេត្ត</string>
     <string name="enter_information">បញ្ចូលព័ត៌មាន</string>
     <string name="private_information">ព័ត៌មានឯកជន</string>
-    <string name="borrow_information">ព័ត៌មានអ្នកខ្ចី</string>
+    <string name="borrower_information">ព័ត៌មានអ្នកខ្ចី</string>
     <string name="co_borrower_information">ព័ត៌មានរបស់អ្នកចូលរួមខ្ចី</string>
     <string name="save">រក្សាទុក</string>
     <string name="please_fill_information">សូមបំពេញព័ត៌មានរបស់លោក-អ្នកអោយបានត្រឹមត្រូវ</string>

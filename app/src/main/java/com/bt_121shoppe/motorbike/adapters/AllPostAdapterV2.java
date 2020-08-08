@@ -28,6 +28,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -194,12 +195,13 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
 //
 //            }
             postTitle.setText(strPostTitle);
+            DecimalFormat f = new DecimalFormat("#,###.##");
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
                 postOriginalPrice.setVisibility(View.INVISIBLE);
-                postOriginalPrice.setText("$ "+mPost.getCost());
+                postOriginalPrice.setText("$ "+f.format(Double.parseDouble(mPost.getCost())));
                 postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                Double cost=Double.parseDouble(mPost.getCost());
+                double cost=Double.parseDouble(mPost.getCost());
                 if(mPost.getDiscount_type().equals("amount")){
                     cost=cost-Double.parseDouble(mPost.getDiscount());
                 }else if(mPost.getDiscount_type().equals("percent")){
@@ -207,9 +209,9 @@ public class AllPostAdapterV2 extends RecyclerView.Adapter<BaseViewHolder> {
                     cost=cost-discountPrice;
                 }
                 mPrice=cost;
-                postPrice.setText("$ "+cost.toString());
+                postPrice.setText("$ "+ f.format(cost));
             }else{
-                postPrice.setText("$ "+mPost.getCost());
+                postPrice.setText("$ "+f.format(Double.parseDouble(mPost.getCost())));
                 postOriginalPrice.setVisibility(View.GONE);
             }
 

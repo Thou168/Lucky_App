@@ -53,10 +53,12 @@ import com.google.gson.JsonParseException;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -212,9 +214,13 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             }
 
             //post price
-            Double cost=0.0;
+            DecimalFormat f = new DecimalFormat("#,###.##");
+            String NoDc,HaveDc,Price_Full_dis;
+            double cost=0.0;
             if(mPost.getDiscount().equals("0.00")) {
-                tvCost.setText("$ " + mPost.getCost());
+                NoDc = NumberFormat.getNumberInstance(Locale.US).format(Double.parseDouble(mPost.getCost()));
+//                tvCost.setText("$ " + f.format(Double.parseDouble(mPost.getCost())));
+                tvCost.setText("$ " + NoDc);
                 ds_price.setVisibility(View.GONE);
                 relativeLayout.setVisibility(View.GONE);
             }
@@ -225,9 +231,12 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 int per1 = (int) ( Double.parseDouble(mPost.getDiscount()));
                 double co_price = Double.parseDouble(String.valueOf(per1 * cost))/100;
                 double price = cost - co_price;
-                DecimalFormat formatter = new DecimalFormat("#0.00");
-                tvCost.setText("$"+formatter.format(price));
-                tvDiscount.setText("$"+cost);
+//                DecimalFormat formatter = new DecimalFormat("#0.00");
+//                tvCost.setText("$"+formatter.format(price));
+                HaveDc = NumberFormat.getNumberInstance(Locale.US).format(price);
+                Price_Full_dis = NumberFormat.getNumberInstance(Locale.US).format(cost);
+                tvCost.setText("$ "+HaveDc);
+                tvDiscount.setText("$ "+Price_Full_dis);
                 tvDiscount.setPaintFlags(tvDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
 

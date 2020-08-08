@@ -1,6 +1,7 @@
 package com.bt_121shoppe.motorbike.activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -92,6 +94,7 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
     TextView old_pw,new_pw,renew_pw;
     CheckGroup check = new CheckGroup();
     int g;
+    Dialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -469,9 +472,31 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
         OkHttpClient client = new OkHttpClient();
         JSONObject post = new JSONObject();
         try{
-            post.put("old_password",old_pass.getText().toString());
-            post.put("new_password",renew_pass.getText().toString());
-
+            if (!renew_pass.getText().toString().equals(old_pass.getText().toString())){
+                post.put("old_password", old_pass.getText().toString());
+                post.put("new_password", renew_pass.getText().toString());
+            }
+//            else{
+//                alertDialog = new Dialog(SettingActivity.this);
+//                AlertDialog.Builder customBuilder = new AlertDialog.Builder(SettingActivity.this);
+//                View clearDialogView = getLayoutInflater().inflate(R.layout.layout_warnning_dialog, null);
+//                customBuilder.setView(clearDialogView);
+//                TextView title = clearDialogView.findViewById(R.id.textView_title);
+//                TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
+//                Mssloan.setText(R.string.this_is_your_old_pass);
+//                title.setText(R.string.title_change_password);
+//                Button btnYes = clearDialogView.findViewById(R.id.button_positive);
+//                btnYes.setText(R.string.ok);
+//                btnYes.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//                alertDialog = customBuilder.create();
+//                alertDialog.setCancelable(false);
+//                alertDialog.show();
+//            }
             System.out.println("Old pass = "+post.put("old_password",old_pass.getText().toString()));
             System.out.println("New pass = "+post.put("new_password",renew_pass.getText().toString()));
 
@@ -591,7 +616,13 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
 //                    startActivity(new Intent(SettingActivity.this, Home.class));
 //                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                     //dialog
-                    dialog_success();
+                    try {
+                        showMessageDialog();
+                    }
+                    catch (WindowManager.BadTokenException e) {
+                        //use a log message
+                        Log.e("WindowManagerBad ", e.toString());
+                    }
                 }
 
                 @Override
@@ -601,24 +632,32 @@ public class SettingActivity extends AppCompatActivity implements SwipeRefreshLa
             });
         }
     }
-
-    private void dialog_success(){
-        AlertDialog.Builder clearDialog = new AlertDialog.Builder(SettingActivity.this);
-        final View clearDialogView = getLayoutInflater().inflate(R.layout.layout_warnning_dialog, null);
-        clearDialog.setView(clearDialogView);
-        clearDialog.setIcon(R.drawable.tab_message_selector);
-//        clearDialog.setCancelable(false);
+    public void showMessageDialog() {
+        alertDialog = new Dialog(SettingActivity.this);
+        AlertDialog.Builder customBuilder = new AlertDialog.Builder(
+                SettingActivity.this);
+        View clearDialogView = getLayoutInflater().inflate(R.layout.layout_warnning_dialog, null);
+        customBuilder.setView(clearDialogView);
         TextView title = clearDialogView.findViewById(R.id.textView_title);
         TextView Mssloan = clearDialogView.findViewById(R.id.textView_message);
         Mssloan.setText(R.string.success_change_password);
         title.setText(R.string.title_change_password);
         Button btnYes = clearDialogView.findViewById(R.id.button_positive);
         btnYes.setText(R.string.ok);
-        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(v -> {
-            startActivity(new Intent(SettingActivity.this, Home.class));
-            finish();
-            overridePendingTransition(R.anim.left_in, R.anim.right_out);
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingActivity.this, Home.class));
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
+            }
         });
-        clearDialog.create().show();
+        alertDialog = customBuilder.create();
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

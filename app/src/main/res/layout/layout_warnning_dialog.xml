@@ -24,7 +24,7 @@
             android:layout_centerInParent="true"
             android:layout_alignParentTop="true"
             android:drawableStart="@drawable/ic_warning"
-            android:drawablePadding="@dimen/dp_18"
+            android:drawablePadding="10dp"
             style="@style/MaterialDialog_Title_warning"
             tools:text="Title" />
 

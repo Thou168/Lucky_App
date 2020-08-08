@@ -33,6 +33,7 @@ import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -215,9 +216,11 @@ if(mPost.getPost_sub_title()!=null)
 //            }else{
 //                postPrice.setText("$ "+mPost.getCost());
 //            }
+    DecimalFormat f = new DecimalFormat("#,###.##");
+    NumberFormat nf = new DecimalFormat("#.####");
+    postPrice.setText("$ "+f.format(Double.parseDouble(mPost.getCost())));
 
-    postPrice.setText("$ "+mPost.getCost());
-
+    System.out.println("Hello "+f.format(Double.parseDouble(mPost.getCost())));
 //            cate.setVisibility(View.VISIBLE);
     if(mPost.getCategory()==1){
         cate.setText(R.string.electronic);

@@ -38,6 +38,7 @@ import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.*;
 import retrofit2.Call;
@@ -149,7 +150,7 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             intent.putExtra("id_product",Integer.parseInt(iditem));
             mContext.startActivity(intent);
         });
-        Double rs_price = 0.0;
+        double rs_price = 0.0;
         String[] delet_item = mContext.getResources().getStringArray(R.array.dailog_delete);
         view.btn_delete.setOnClickListener(v -> {
             AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
@@ -231,8 +232,9 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
         view.title.setText(strPostTitle);
 
 //Endd
+        DecimalFormat f = new DecimalFormat("#,###.##");
         if (model.getDiscount().equals("0.00")){
-            view.cost.setText("$"+model.getCost());
+            view.cost.setText("$ "+f.format(Double.parseDouble(model.getCost())));
             view.ds_price.setVisibility(View.GONE);
             view.txt_discount.setVisibility(View.INVISIBLE);
         }else {
@@ -240,13 +242,13 @@ public class Adapter_postbyuser extends RecyclerView.Adapter<Adapter_postbyuser.
             if (model.getDiscount_type().equals("amount")){
                 rs_price = rs_price - Double.parseDouble(model.getDiscount());
             }else if (model.getDiscount_type().equals("percent")){
-                Double per = Double.parseDouble(model.getCost()) *( Double.parseDouble(model.getDiscount())/100);
+                double per = Double.parseDouble(model.getCost()) *( Double.parseDouble(model.getDiscount())/100);
                 rs_price = rs_price - per;
             }
-            view.cost.setText("$"+rs_price);
+            view.cost.setText("$ "+f.format(rs_price));
             view.txt_discount.setVisibility(View.VISIBLE);
             double co_price = Double.parseDouble(model.getCost());
-            view.txt_discount.setText("$"+co_price);
+            view.txt_discount.setText("$ "+f.format(co_price));
             view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
         Double finalRs_price = rs_price;

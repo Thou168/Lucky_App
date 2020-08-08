@@ -179,6 +179,7 @@ public class AccountSettingActivity extends AppCompatActivity {
                         FirebaseAuth.getInstance().signOut();
                         LoginManager.getInstance().logOut();
                         startActivity(new Intent(AccountSettingActivity.this,Home.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
                     }
                 });
                 clearDialog.show();

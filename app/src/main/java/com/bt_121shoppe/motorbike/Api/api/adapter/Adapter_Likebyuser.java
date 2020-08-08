@@ -41,6 +41,8 @@ import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -160,12 +162,16 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                     }
 
                     Double rs_price=0.0;
+                    DecimalFormat f = new DecimalFormat("#,###.##");
+                    String NoDc,HaveDc,Price_Full_dis;
                     if (response.body().getDiscount().equals("0.00")){
-                        Double co_cost = Double.parseDouble(response.body().getCost());
-                        view.cost.setText("$"+co_cost);
+                        double co_cost = Double.parseDouble(response.body().getCost());
+                        NoDc = NumberFormat.getNumberInstance(Locale.US).format(co_cost);
+                        view.cost.setText("$ "+NoDc);
                         view.linearLayout.setOnClickListener(v -> {
                             Intent intent = new Intent(mContext, Detail_new_post_java.class);
                             intent.putExtra("ID",Integer.parseInt(iditem));
+                            intent.putExtra("intent_like","like");
                             mContext.startActivity(intent);
                         });
                     }else {
@@ -185,18 +191,21 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
 //                            view.txt_discount.setText("$" + co_price);
 //                            view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 //                        }else {
-                            Double per = Double.parseDouble(response.body().getCost()) *( Double.parseDouble(response.body().getDiscount())/100);
-                            Double co_price = Double.parseDouble(response.body().getCost());
+                            double per = Double.parseDouble(response.body().getCost()) *( Double.parseDouble(response.body().getDiscount())/100);
+                            double co_price = Double.parseDouble(response.body().getCost());
                             double result = co_price - per;
-                            view.cost.setText("$" + result);
+                        HaveDc = NumberFormat.getNumberInstance(Locale.US).format(result);
+                            view.cost.setText("$ " + HaveDc);
                             view.txt_discount.setVisibility(View.VISIBLE);
-                            view.txt_discount.setText("$"+co_price);
+                        Price_Full_dis = NumberFormat.getNumberInstance(Locale.US).format(co_price);
+                            view.txt_discount.setText("$ "+Price_Full_dis);
                             view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 //                        }
                         view.linearLayout.setOnClickListener(v -> {
                             Intent intent = new Intent(mContext, Detail_new_post_java.class);
                             intent.putExtra("Discount", per);
                             intent.putExtra("ID", Integer.parseInt(iditem));
+                            intent.putExtra("intent_like","like");
                             mContext.startActivity(intent);
                         });
                     }
@@ -288,6 +297,7 @@ public class Adapter_Likebyuser extends RecyclerView.Adapter<Adapter_Likebyuser.
                         clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                clearDialog.dismiss();
                                 Service api1 = Client.getClient().create(Service.class);
                                 change_status_unlike unlike = new change_status_unlike(null,Integer.parseInt(iditem),pk,2);
 //

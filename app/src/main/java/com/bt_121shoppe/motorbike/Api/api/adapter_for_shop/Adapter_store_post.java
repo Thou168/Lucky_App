@@ -39,6 +39,7 @@ import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.List;
 
@@ -219,9 +220,10 @@ public class ViewHolder extends BaseViewHolder{
         }
 
         //post price
-        Double cost=0.0;
+        DecimalFormat f = new DecimalFormat("#,###.##");
+        double cost=0.0;
         if(mPost.getDiscount().equals("0.00")) {
-            tvCost.setText("$ " + mPost.getCost());
+            tvCost.setText("$ " + f.format(Double.parseDouble(mPost.getCost())));
             ds_price.setVisibility(View.GONE);
             relativeLayout.setVisibility(View.GONE);
         }
@@ -242,10 +244,10 @@ public class ViewHolder extends BaseViewHolder{
             Double per = Double.parseDouble(mPost.getCost()) *( Double.parseDouble(mPost.getDiscount())/100);
 //                    int per1 = (int) ( Double.parseDouble(mPost.getDiscount()));
             cost = cost - per;
-            tvCost.setText("$"+cost);
+            tvCost.setText("$ "+f.format(cost));
             tvDiscount.setVisibility(View.VISIBLE);
-            Double co_price = Double.parseDouble(mPost.getCost());
-            tvDiscount.setText("$"+co_price);
+            double co_price = Double.parseDouble(mPost.getCost());
+            tvDiscount.setText("$ "+f.format(co_price));
             tvDiscount.setPaintFlags(tvDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 

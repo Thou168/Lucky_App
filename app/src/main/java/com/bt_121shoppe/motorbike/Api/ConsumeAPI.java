@@ -5,8 +5,12 @@ import okhttp3.MediaType;
 public class ConsumeAPI {
 
     //testing server\
-    public static final String BASE_URL="http://103.205.26.103:8000/";
-    public static final String BASE_URL_IMG="http://103.205.26.103:8000";
+//    public static final String BASE_URL="http://103.205.26.103:8000/";
+//    public static final String BASE_URL_IMG="http://103.205.26.103:8000";
+//    public static final String BASE_URL="http://192.168.1.239:8000/";
+//    public static final String BASE_URL_IMG="http://192.168.1.239:8000/";
+    public static final String BASE_URL="http://119.15.90.154:8000/";
+    public static final String BASE_URL_IMG="http://119.15.90.154:8000/";
     public static final String IMAGE_STRING_PATH=BASE_URL+"media/post_images/";
     public static final boolean IS_PRODUCTION=false;
     public static final String FB_POST="postssit";

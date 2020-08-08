@@ -33,10 +33,13 @@ import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -179,7 +182,10 @@ public class Adapter_historyloan extends RecyclerView.Adapter<Adapter_historyloa
                     }
 
                     view.title.setText(strPostTitle);
-                    view.cost.setText("$"+model.getLoan_amount());
+                    DecimalFormat f = new DecimalFormat("#,###.##");
+                    String NoDc,HaveDc,Price_Full_dis;
+                    NoDc = NumberFormat.getNumberInstance(Locale.US).format(Double.parseDouble(model.getLoan_amount()));
+                    view.cost.setText("$ "+NoDc);
                     if (response.body().getPost_type().equals("sell")){
                         view.item_type.setText(R.string.sell_t);
 //                        view.item_type.setBackgroundColor(mContext.getResources().getColor(R.color.color_sell));

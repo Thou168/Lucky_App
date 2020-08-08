@@ -164,4 +164,6 @@ dependencies {
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation "com.pdfview:pdfview-android:1.0.0"
 
+    //color_picker_implementation
+//    implementation "com.github.skydoves:colorpickerview:2.1.7"
 }

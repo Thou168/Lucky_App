@@ -214,6 +214,9 @@ public class ChatMainActivity extends AppCompatActivity {
                                 case R.id.camera:
                                     if (prefer.contains("token") || prefer.contains("id")) {
                                         startActivity(new Intent(getApplicationContext(), Camera.class));
+                                        Intent i = new Intent(ChatMainActivity.this,Camera.class);
+                                        i.putExtra("chat_to_camera","camera");
+                                        startActivity(i);
                                         overridePendingTransition(R.anim.left_in, R.anim.right_out);
                                     } else {
                                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));

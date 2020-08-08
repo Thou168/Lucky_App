@@ -30,6 +30,7 @@ import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import retrofit2.Call;
@@ -90,7 +91,7 @@ public class Adapter_store_post_history extends RecyclerView.Adapter<Adapter_sto
                     Item model = response.body();
                     Log.e("TAG","Response from post history detail "+model.getStatus());
                     String iditem=String.valueOf((int)model.getId());
-                    Double rs_price = 0.0;
+                    double rs_price = 0.0;
                     //Close by Raksmey
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 //        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -148,8 +149,9 @@ public class Adapter_store_post_history extends RecyclerView.Adapter<Adapter_sto
 
                     //        view.imgUserProfile.setVisibility(View.GONE);
                     //End
+                    DecimalFormat f = new DecimalFormat("#,###.##");
                     if (model.getDiscount().equals("0.00")){
-                        view.cost.setText("$"+model.getCost());
+                        view.cost.setText("$ "+f.format(Double.parseDouble(model.getCost())));
 //            rs_price = Double.parseDouble(model.getCost());
                         view.txt_discount.setVisibility(View.GONE);
                     }else {
@@ -160,10 +162,10 @@ public class Adapter_store_post_history extends RecyclerView.Adapter<Adapter_sto
                             Double per = Double.parseDouble(model.getCost()) *( Double.parseDouble(model.getDiscount())/100);
                             rs_price = rs_price - per;
                         }
-                        view.cost.setText("$"+rs_price);
+                        view.cost.setText("$ "+f.format(rs_price));
                         view.txt_discount.setVisibility(View.VISIBLE);
-                        Double co_price = Double.parseDouble(model.getCost());
-                        view.txt_discount.setText("$"+co_price);
+                        double co_price = Double.parseDouble(model.getCost());
+                        view.txt_discount.setText("$ "+f.format(co_price));
                         view.txt_discount.setPaintFlags(view.txt_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
                     Double finalRs_price = rs_price;

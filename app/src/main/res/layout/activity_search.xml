@@ -25,14 +25,14 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <TextView
+                <ImageView
                     android:id="@+id/Closed_activity"
                     android:layout_width="20.21dp"
-                    android:layout_height="14dp"
-                    android:gravity="center_vertical"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="14dp"
-                    android:drawableStart="@drawable/back_arrow_x1" />
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="14dp"
+                    android:src="@drawable/back_arrow" />
 
                 <androidx.appcompat.widget.SearchView
                     android:layout_toRightOf="@id/Closed_activity"

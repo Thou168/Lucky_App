@@ -21,6 +21,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -87,6 +88,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -352,8 +354,15 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 
     @Override
     public void onBackPressed() {
-        if (login_verify!=null || postId != 0){
-            startActivity(new Intent(Detail_new_post_java.this,Home.class));
+        String back_like;
+        Intent i = getIntent();
+        back_like=i.getStringExtra("intent_like");
+        if (login_verify!=null || postId != 0) {
+            if (back_like != null) {
+                finish();
+            } else {
+                startActivity(new Intent(Detail_new_post_java.this, Home.class));
+            }
             overridePendingTransition(R.anim.left_in, R.anim.right_out);
         }else {
             finish();
@@ -554,40 +563,46 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
 //                            tv_dox.setVisibility(View.VISIBLE);
 //                            tvDiscountPer.setVisibility(View.VISIBLE);
 //                        }else {
+
+                        DecimalFormat f = new DecimalFormat("#,###.##");
+                        String NoDc,HaveDc,Price_Full_dis;
                         double result=0;
                         discount=Double.parseDouble(postDetail.getDiscount());
-
                         if (discount!=0.00) {
                             double pricefull = Double.parseDouble(postDetail.getCost());
                             double discountPrice = pricefull * (Double.parseDouble(postDetail.getDiscount()) / 100);
                             int per1 = (int) (Double.parseDouble(postDetail.getDiscount()));
                             result = pricefull - discountPrice;
-                            DecimalFormat formatter = new DecimalFormat("#0.00");
-                            tvPrice.setText("$ " + formatter.format(result));
-                            tvDiscount.setText("$" + postDetail.getDiscount());
+//                            DecimalFormat formatter = new DecimalFormat("#0.00");
+//                            tvPrice.setText("$ " + formatter.format(result));
+//                            tvDiscount.setText("$" + postDetail.getDiscount());
+                            HaveDc = NumberFormat.getNumberInstance(Locale.US).format(result);
+                            tvPrice.setText("$ " + HaveDc);
+                            Price_Full_dis = NumberFormat.getNumberInstance(Locale.US).format(Double.parseDouble(postDetail.getCost()));
+                            tvDiscount.setText("$ " + Price_Full_dis);
+                            tvDiscount.setPaintFlags(tvDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                             tvDiscountPer.setText("- " + per1 + "%");
                             tv_dox.setVisibility(View.GONE);
                             tvDiscountPer.setVisibility(View.VISIBLE);
-//                            if (pricefull==0.00){
-//                                tvPrice.setText("$ 0.00");
-//                            }
                         }
 //                        }
+
                         postPrice=String.valueOf(result);
                         if (discount == 0.00){
                             tvDiscount.setVisibility(View.GONE);
                             tvDiscountPer.setVisibility(View.GONE);
                             tv_dox.setVisibility(View.GONE);
-                            tvPrice.setText("$ "+postDetail.getCost());
+                            NoDc = NumberFormat.getNumberInstance(Locale.US).format(Double.parseDouble(postDetail.getCost()));
+                            tvPrice.setText("$ "+NoDc);
                             postPrice = postDetail.getCost();
                         }
 
-                        String st = "$ "+postDetail.getCost();
-                        st = st.substring(0, st.length()-1);
-                        SpannableString ms = new  SpannableString(st);
-                        StrikethroughSpan mst = new  StrikethroughSpan();
-                        ms.setSpan(mst,0,st.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        tvDiscount.setText(ms);
+//                        String st = "$ "+f.format(Double.parseDouble(postDetail.getCost()));
+//                        st = st.substring(0, st.length()-1);
+//                        SpannableString ms = new  SpannableString(st);
+//                        StrikethroughSpan mst = new  StrikethroughSpan();
+//                        ms.setSpan(mst,0,st.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                        tvDiscount.setText(ms);
 
                         String contact_phone = postDetail.getContact_phone();
                         Phone_call(contact_phone);

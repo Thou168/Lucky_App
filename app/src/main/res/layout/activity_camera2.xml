@@ -22,9 +22,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/back"
                 android:textStyle="bold"
-                android:textColor="#fff"
+                android:textColor="#ffff"
                 android:gravity="center_vertical"
-                android:drawableLeft="@drawable/chevron_left_36"/>
+                android:drawableStart="@drawable/chevron_left_36"/>
 
             <Button
                 android:id="@+id/btnSubmitPost"
@@ -464,7 +464,7 @@
 
                     <com.skydoves.colorpickerpreference.ColorPickerView
                         android:id="@+id/colorPickerView"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:palette="@drawable/palette"
                         app:selector="@drawable/wheel" />

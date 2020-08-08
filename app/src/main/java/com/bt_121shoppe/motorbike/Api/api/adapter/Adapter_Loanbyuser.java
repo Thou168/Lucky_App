@@ -40,10 +40,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -115,7 +118,10 @@ public class Adapter_Loanbyuser extends RecyclerView.Adapter<Adapter_Loanbyuser.
                         }
                     }
                     view.title.setText(strPostTitle);
-                    view.cost.setText("$"+model.getLoan_amount());
+                    DecimalFormat f = new DecimalFormat("#,###.##");
+                    String NoDc,HaveDc,Price_Full_dis;
+                    NoDc = NumberFormat.getNumberInstance(Locale.US).format(Double.parseDouble(model.getLoan_amount()));
+                    view.cost.setText("$ "+NoDc);
 
                     if (response.body().getCategory()==1){
                         view.cate.setText(R.string.electronic);

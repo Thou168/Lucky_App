@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Address;
@@ -277,7 +278,7 @@ public class Postbyuser_Class extends AppCompatActivity {
                         Log.e(TAG, title_language + " " + strPostTitle);
                         tv_title.setText(strPostTitle);
                         tv_title.setTextSize(22F);
-
+                        DecimalFormat f = new DecimalFormat("#,###.##");
 //                        if (postDetail.getDiscount_type().equals("percent")) {
 //                            double cost=Double.parseDouble(postDetail.getCost());
 //                            double discountPrice=cost*(Double.parseDouble(postDetail.getDiscount())/100);
@@ -294,10 +295,12 @@ public class Postbyuser_Class extends AppCompatActivity {
                             double discountPrice = cost * (Double.parseDouble(postDetail.getDiscount()) / 100);
                             double result = cost - discountPrice;
                             int per1 = (int) (Double.parseDouble(postDetail.getDiscount()));
-                            DecimalFormat formatter = new DecimalFormat("#0.00");
-                            tv_price.setText("$ " + formatter.format(result));
+//                            DecimalFormat formatter = new DecimalFormat("#0.00");
+//                            tv_price.setText("$ " + formatter.format(result));
+                            tv_price.setText("$ " + f.format(result));
                             tv_discount_per.setText("- " + per1 + "%");
-                            tv_discount.setText("$" + postDetail.getDiscount());
+                            tv_discount.setText("$ " + f.format(Double.parseDouble(postDetail.getCost())));
+                            tv_discount.setPaintFlags(tv_discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                             tv_discount_per.setVisibility(View.VISIBLE);
                             tv_dox.setVisibility(View.GONE);
                         }
@@ -305,15 +308,16 @@ public class Postbyuser_Class extends AppCompatActivity {
                             tv_discount.setVisibility(View.GONE);
                             tv_discount_per.setVisibility(View.GONE);
                             tv_dox.setVisibility(View.GONE);
-                            tv_price.setText("$ " + postDetail.getCost());
+                            tv_price.setText("$ " + f.format(Double.parseDouble(postDetail.getCost())));
+                            System.out.println("Hello "+f.format(Double.parseDouble(postDetail.getCost())));
                             postPrice = postDetail.getCost();
                         }
-                        String st = "$ " + postDetail.getCost();
-                        st = st.substring(0, st.length() - 1);
-                        SpannableString ms = new SpannableString(st);
-                        StrikethroughSpan mst = new StrikethroughSpan();
-                        ms.setSpan(mst, 0, st.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        tv_discount.setText(ms);
+//                        String st = "$ " + f.format(Double.parseDouble(postDetail.getCost()));
+//                        st = st.substring(0, st.length() - 1);
+//                        SpannableString ms = new SpannableString(st);
+//                        StrikethroughSpan mst = new StrikethroughSpan();
+//                        ms.setSpan(mst, 0, st.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                        tv_discount.setText(ms);
 
                         front_image = "";
                         right_image = "";

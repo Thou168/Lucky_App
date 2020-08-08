@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -164,11 +165,12 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
                 postTitle.setText(strPostTitle);
             }
 
+            DecimalFormat f = new DecimalFormat("#,###.##");
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
-                postOriginalPrice.setText("$ "+mPost.getCost());
+                postOriginalPrice.setText("$ "+f.format(Double.parseDouble(mPost.getCost())));
                 postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                Double cost=Double.parseDouble(mPost.getCost());
+                double cost=Double.parseDouble(mPost.getCost());
                 if(mPost.getDiscount_type().equals("amount")){
                     cost=cost-Double.parseDouble(mPost.getDiscount());
                 }else if(mPost.getDiscount_type().equals("percent")){
@@ -176,7 +178,7 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
                     cost=cost-discountPrice;
                 }
                 mPrice=cost;
-                postPrice.setText("$ "+cost.toString());
+                postPrice.setText("$ "+f.format(Double.parseDouble(Double.toString(cost))));
             }else{
                 postOriginalPrice.setVisibility(View.GONE);
             }

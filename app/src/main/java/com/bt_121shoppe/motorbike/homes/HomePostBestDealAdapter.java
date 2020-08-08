@@ -31,6 +31,7 @@ import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bt_121shoppe.motorbike.viewholders.BaseViewHolder;
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -166,15 +167,18 @@ public class HomePostBestDealAdapter extends RecyclerView.Adapter<BaseViewHolder
                 tvColor2.setBackground(shape1);
             }
 
+            DecimalFormat f = new DecimalFormat("#,###.##");
             double mPrice=0;
             if(Double.parseDouble(mPost.getDiscount())>0) {
-                Double cost=Double.parseDouble(mPost.getCost());
-                Double discountPrice=cost*(Double.parseDouble(mPost.getDiscount())/100);
+                double cost=Double.parseDouble(mPost.getCost());
+                double discountPrice=cost*(Double.parseDouble(mPost.getDiscount())/100);
                 int per1 = (int) ( Double.parseDouble(mPost.getDiscount()));
                 cost=cost-discountPrice;
                 mPrice=cost;
-                postPrice.setText("$ "+cost.toString());
-                postOriginalPrice.setText("$ "+mPost.getCost());
+//                postPrice.setText("$ "+ Double.toString(cost));
+//                postOriginalPrice.setText("$ "+mPost.getCost());
+                postPrice.setText("$ "+ f.format(cost));
+                postOriginalPrice.setText("$ "+f.format(Double.parseDouble(mPost.getCost())));
                 ds_price.setText(per1+"%");
                 relativeLayout.setVisibility(View.VISIBLE);
                 postOriginalPrice.setPaintFlags(postOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);

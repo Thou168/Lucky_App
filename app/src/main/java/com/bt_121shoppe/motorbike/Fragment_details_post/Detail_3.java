@@ -67,7 +67,7 @@ public class Detail_3 extends Fragment {
     private String name,pass,Encode;
     float correct;
     String term = "0";
-
+    String monthlypay;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -240,6 +240,7 @@ public class Detail_3 extends Fragment {
                                 postDetail = json.fromJson(mMessage, PostViewModel.class);
                                 Log.e(TAG, "D" + mMessage);
                                 postPrice=discount.toString();
+
                                 float post_price_dc = Float.parseFloat(postDetail.getCost());
                                 float discountPrice = post_price_dc * (Float.parseFloat(postDetail.getDiscount()) / 100);
                                 float result = post_price_dc - discountPrice;
@@ -403,7 +404,16 @@ public class Detail_3 extends Fragment {
 //        DecimalFormat me = new  DecimalFormat("#.##", df);
 //        me.setRoundingMode(RoundingMode.HALF_EVEN);
 //        tvMonthly.setText(me.format(monthlypayment) + " $ ");
-        DecimalFormat bd = new DecimalFormat("##0.00");
-        tvMonthly.setText("$"+bd.format(monthlypayment));
+
+        // banned from 05/08/2020
+//        DecimalFormat bd = new DecimalFormat("##0.00");
+//        tvMonthly.setText("$"+bd.format(monthlypayment));
+        DecimalFormat f = new DecimalFormat("#,###.##");
+        monthlypay = f.format(monthlypayment);
+        monthlypay = NumberFormat.getNumberInstance(Locale.US).format(monthlypayment);
+        tvMonthly.setText("$ " + monthlypay);
+        if (Double.isNaN(monthlypayment)){
+            tvMonthly.setText("$ 0.00");
+        }
     }
 }

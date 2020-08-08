@@ -4,13 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
-import android.os.Bundle
 import android.provider.MediaStore
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.StrikethroughSpan
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -35,9 +32,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val type: String?,val context: Context) : RecyclerView.Adapter<MyAdapter_list_grid_image.ViewHolder>() {
 
@@ -113,10 +110,15 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
             var price: Double = 0.00
             var discount: Double = 0.00
             var language:String
+            val f = DecimalFormat("#,###.##")
+            var NoDc: String
+            var HaveDc: String
+            var Price_Full_dis: String
             if (item.discount == 0.00){
                 tv_discount.visibility = View.GONE
 //                tv_discount.text = price.toString()
-                cost.text = "$" + item.cost.toString()
+                NoDc = NumberFormat.getNumberInstance(Locale.US).format(item.cost)
+                cost.text = "$ " + NoDc
              }else {
                 tv_discount.visibility = View.VISIBLE
                 price = item.cost - item.discount!!.toInt()
@@ -124,14 +126,17 @@ class MyAdapter_list_grid_image(private val itemList: ArrayList<Item_API>, val t
                 price = item.cost - discount
 //                val stprice=NumberFormat.getNumberInstance(Locale.US).format(price)
                 //cost.text = "$$price"
-                cost.text = "$$price"
+                HaveDc = NumberFormat.getNumberInstance(Locale.US).format(price)
+                cost.text = "$ " + HaveDc
 
-                val st = "$"+item.cost.toString()
-//                val st = "$"+NumberFormat.getNumberInstance(Locale.US).format(item.cost)
-                val ms = SpannableString(st)
-                val mst = StrikethroughSpan()
-                ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                tv_discount.text = ms
+//                val st = "$"+item.cost.toString()
+////                val st = "$"+NumberFormat.getNumberInstance(Locale.US).format(item.cost)
+//                val ms = SpannableString(st)
+//                val mst = StrikethroughSpan()
+//                ms.setSpan(mst,0,st.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                Price_Full_dis = NumberFormat.getNumberInstance(Locale.US).format(item.cost)
+                tv_discount.text = "$ " + Price_Full_dis
+                tv_discount.paintFlags = tv_discount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             }
             language=lang.text.toString()
             var strPostTitle:String = ""

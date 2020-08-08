@@ -235,6 +235,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Account.this, Register.class);
+                i.putExtra("from_profile","profile");
                 startActivity(i);
             }
         });
@@ -368,6 +369,7 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                         break;
                     case R.id.camera:
                         Intent myIntent3 = new Intent(Account.this, Camera.class);
+                        myIntent3.putExtra("account_camera","camera");
                         startActivity(myIntent3);
                         overridePendingTransition(R.anim.left_in, R.anim.right_out);
                         break;

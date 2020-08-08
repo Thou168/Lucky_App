@@ -602,6 +602,13 @@
     <string name="loan_fail_message">Loan request has been error while submitting.</string>
     <string name="missing_image">Please select images</string>
     <string name="missing_color">Please select color</string>
+    <string name="missing_price">Please select price</string>
+    <string name="missing_post_type">Please select post type</string>
+    <string name="missing_type">Please select type</string>
+    <string name="missing_type_cate">Please select type category</string>
+    <string name="missing_brand">Please select brand</string>
+    <string name="missing_model">Please select model</string>
+    <string name="missing_year">Please select year</string>
     <string name="post_message">Your post is waiting for approval.</string>
     <string name="title_edit_loan">Edit your loan</string>
     <string name="loan_edit_m">Are you sure with your edit?</string>
@@ -685,7 +692,9 @@
     <string name="login_fail">Login Failure</string>
     <string name="logout_message">Are you sure for Sign out?</string>
     <string name="title_change_password">Changed Password</string>
+    <string name="title_change_password_fail">Wrong password change</string>
     <string name="success_change_password">Your password was changed</string>
+    <string name="this_is_your_old_pass">This is your old password!</string>
     <string name="fail_change_password">Your password has been error while changing.</string>
     <string name="alert_wrong_password">Wrong password!!</string>
     <string name="alert_old_password">Please enter your old password.</string>
@@ -773,6 +782,14 @@
     <string name="accessories_describe">( Bumper , Mirror , Marion , Elbow pedal ,… )</string>
 
     <string name="error_number">Cannot enter more than 100 entries</string>
+
+    //take pic message
+    <string name="take_pic_front">Front</string>
+    <string name="take_pic_right">Right</string>
+    <string name="take_pic_left">Left</string>
+    <string name="take_pic_back">Back</string>
+    <string name="take_pic_somewhere">Other</string>
+
     //edit account
     <string name="yellow">Yellow</string>
     <string name="pink">Pink</string>
@@ -1125,7 +1142,7 @@
     <string name="invalid_province">Province can`t be empty</string>
     <string name="enter_information">Enter Information</string>
     <string name="private_information">Private Information</string>
-    <string name="borrow_information">Borrow Information</string>
+    <string name="borrower_information">Borrower Information</string>
     <string name="invalid_card_id">Card ID can`t be empty</string>
     <string name="invalid_family_book">Family Book can`t be empty</string>
     <string name="invalid_photo">Photo can`t be empty</string>

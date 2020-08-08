@@ -76,7 +76,7 @@ public class Search1 extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         locale();
         relative_view = findViewById(R.id.rl_filter);
-        TextView back = findViewById(R.id.Closed_activity);
+        ImageView back = findViewById(R.id.Closed_activity);
         cardView = findViewById(R.id.card_filter);
         show_view = findViewById(R.id.show_view);
         back.setOnClickListener(new View.OnClickListener() {
