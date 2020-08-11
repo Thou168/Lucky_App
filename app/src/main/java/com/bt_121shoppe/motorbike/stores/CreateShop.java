@@ -948,9 +948,9 @@ public class CreateShop extends AppCompatActivity {
                     geocoder = new Geocoder(getApplication(), Locale.getDefault());
                     String locat = response.body().getShop_address_map();
                     if (!locat.isEmpty()) {
-                        String add[] = locat.split(",");
-                        Double latetitude = Double.parseDouble(add[0]);
-                        Double longtitude = Double.parseDouble(add[1]);
+                        String[] add = locat.split(",");
+                        double latetitude = Double.parseDouble(add[0]);
+                        double longtitude = Double.parseDouble(add[1]);
                         try {
                             addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
                             String road = addresses.get(0).getAddressLine(0);

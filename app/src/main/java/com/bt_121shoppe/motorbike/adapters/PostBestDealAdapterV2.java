@@ -174,7 +174,7 @@ public class PostBestDealAdapterV2 extends RecyclerView.Adapter<BaseViewHolder>{
                 if(mPost.getDiscount_type().equals("amount")){
                     cost=cost-Double.parseDouble(mPost.getDiscount());
                 }else if(mPost.getDiscount_type().equals("percent")){
-                    Double discountPrice=cost*(Double.parseDouble(mPost.getDiscount())/100);
+                    double discountPrice=cost*(Double.parseDouble(mPost.getDiscount())/100);
                     cost=cost-discountPrice;
                 }
                 mPrice=cost;

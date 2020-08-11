@@ -279,7 +279,7 @@ public class ViewHolder extends BaseViewHolder{
             btRenewal.setTextColor(Color.parseColor("#0A0909"));
             btRenewal.setText(R.string.renew);
             user_active.setVisibility(View.GONE);
-        }else{
+        }else if ((int) mPost.getStatus()==4){
             //btRenewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_autorenew_black_24dp, 0, 0, 0);
             pending_appprove.setText(R.string.approveval);
             pending_appprove.setTextColor(Color.parseColor("#43BF64"));
@@ -317,6 +317,12 @@ public class ViewHolder extends BaseViewHolder{
                     })
                     .setNegativeButton(android.R.string.no,null)
                     .show());
+        }else {  // for rejected
+            pending_appprove.setText(R.string.reject);
+            pending_appprove.setTextColor(Color.parseColor("#CCCCCC"));
+
+            btRenewal.setVisibility(View.GONE);
+            btnSold.setVisibility(View.GONE);
         }
 
         btEdit.setOnClickListener(new View.OnClickListener() {
@@ -332,64 +338,47 @@ public class ViewHolder extends BaseViewHolder{
         btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] delet_item = itemView.getContext().getResources().getStringArray(R.array.dailog_delete);
-                AlertDialog.Builder dialog = new AlertDialog.Builder(itemView.getContext());
-                dialog.setItems(delet_item, (dialog1, which) -> {
-                    if (delet_item[which].equals(delet_item[3])){
-                        dialog1.dismiss();
-                    }else {
+                LayoutInflater factory = LayoutInflater.from(itemView.getContext());
+                final View clearDialogView = factory.inflate(R.layout.layout_alert_dialog, null);
+                final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(itemView.getContext()).create();
+                clearDialog.setView(clearDialogView);
+                clearDialog.setCancelable(false);
+                TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                Mssloan.setText(R.string.remove_po);
+                TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                title.setText(R.string.for_reomve_title);
+                Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                btnYes.setText(R.string.yes_leave);
+                Button btnNo = (Button) clearDialogView.findViewById(R.id.button_negative);
+                btnNo.setText(R.string.no_leave);
+                clearDialogView.findViewById(R.id.button_negative).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clearDialog.dismiss();
+                    }
+                });
+                clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         String date = null;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             date = Instant.now().toString();
                         }
-                        String item = delet_item[which];
-                        change_status_delete change_status = new change_status_delete(2,date,pk,item);
+                        change_status_delete change_status = new change_status_delete(2,date,pk,"");
                         Service api = Client.getClient().create(Service.class);
-
                         Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
                         call.enqueue(new retrofit2.Callback<change_status_delete>() {
                             @Override
                             public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
-
-                                Call<APIStorePostResponse> call1=api.GetStorePostItembyPost((int)mPost.getId());
-                                call1.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
-                                    @Override
-                                    public void onResponse(Call<APIStorePostResponse> call, Response<APIStorePostResponse> response) {
-                                        if(response.isSuccessful()){
-                                            //Log.e("TAG","Result "+response.body().getCount());
-                                            if(response.body().getCount()>0){
-                                                StorePostViewModel item=response.body().getResults().get(0);
-                                                item.setRecord_status(2);
-                                                Call<StorePostViewModel> call2=api.updateDealerPostStatus(item.getId(),item);
-                                                call2.enqueue(new retrofit2.Callback<StorePostViewModel>() {
-                                                    @Override
-                                                    public void onResponse(Call<StorePostViewModel> call, Response<StorePostViewModel> response) {
-                                                        Log.e("TAG","update record post dealer status success. "+response.body());
-                                                        FBPostCommonFunction.deletePost(String.valueOf(item.getId()));
-                                                        Intent intent = new Intent(itemView.getContext(), Account.class);
-                                                        itemView.getContext().startActivity(intent);
-                                                        ((Activity)itemView.getContext()).finish();
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<StorePostViewModel> call, Throwable t) {
-
-                                                    }
-                                                });
-
-                                            }else{
-
-                                            }
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<APIStorePostResponse> call, Throwable t) {
-
-                                    }
-                                });
-
-
+                                if (!response.isSuccessful()){
+                                    Log.d("Error Remove", String.valueOf(response.code()));
+                                    return;
+                                }
+                                //FBPostCommonFunction.renewalPost(String.valueOf((int)mPost.getId()));
+                                FBPostCommonFunction.deletePost(String.valueOf((int)mPost.getId()));
+                                Intent intent = new Intent(itemView.getContext(), Account.class);
+                                itemView.getContext().startActivity(intent);
+                                ((Activity)itemView.getContext()).finish();
                             }
 
                             @Override
@@ -397,11 +386,80 @@ public class ViewHolder extends BaseViewHolder{
 
                             }
                         });
-
-
+                        clearDialog.dismiss();
                     }
                 });
-                dialog.create().show();
+                clearDialog.show();
+//                String[] delet_item = itemView.getContext().getResources().getStringArray(R.array.dailog_delete);
+//                AlertDialog.Builder dialog = new AlertDialog.Builder(itemView.getContext());
+//                dialog.setItems(delet_item, (dialog1, which) -> {
+//                    if (delet_item[which].equals(delet_item[3])){
+//                        dialog1.dismiss();
+//                    }else {
+//                        String date = null;
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                            date = Instant.now().toString();
+//                        }
+//                        String item = delet_item[which];
+//                        change_status_delete change_status = new change_status_delete(2,date,pk,item);
+//                        Service api = Client.getClient().create(Service.class);
+//
+//                        Call<change_status_delete> call = api.getputStatus((int)mPost.getId(),change_status,basic_Encode);
+//                        call.enqueue(new retrofit2.Callback<change_status_delete>() {
+//                            @Override
+//                            public void onResponse(Call<change_status_delete> call, Response<change_status_delete> response) {
+//
+//                                Call<APIStorePostResponse> call1=api.GetStorePostItembyPost((int)mPost.getId());
+//                                call1.enqueue(new retrofit2.Callback<APIStorePostResponse>() {
+//                                    @Override
+//                                    public void onResponse(Call<APIStorePostResponse> call, Response<APIStorePostResponse> response) {
+//                                        if(response.isSuccessful()){
+//                                            //Log.e("TAG","Result "+response.body().getCount());
+//                                            if(response.body().getCount()>0){
+//                                                StorePostViewModel item=response.body().getResults().get(0);
+//                                                item.setRecord_status(2);
+//                                                Call<StorePostViewModel> call2=api.updateDealerPostStatus(item.getId(),item);
+//                                                call2.enqueue(new retrofit2.Callback<StorePostViewModel>() {
+//                                                    @Override
+//                                                    public void onResponse(Call<StorePostViewModel> call, Response<StorePostViewModel> response) {
+//                                                        Log.e("TAG","update record post dealer status success. "+response.body());
+//                                                        FBPostCommonFunction.deletePost(String.valueOf(item.getId()));
+//                                                        Intent intent = new Intent(itemView.getContext(), Account.class);
+//                                                        itemView.getContext().startActivity(intent);
+//                                                        ((Activity)itemView.getContext()).finish();
+//                                                    }
+//
+//                                                    @Override
+//                                                    public void onFailure(Call<StorePostViewModel> call, Throwable t) {
+//
+//                                                    }
+//                                                });
+//
+//                                            }else{
+//
+//                                            }
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailure(Call<APIStorePostResponse> call, Throwable t) {
+//
+//                                    }
+//                                });
+//
+//
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<change_status_delete> call, Throwable t) {
+//
+//                            }
+//                        });
+//
+//
+//                    }
+//                });
+//                dialog.create().show();
             }
         });
 

@@ -47,21 +47,17 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-
 import com.bt_121shoppe.motorbike.Api.api.Active_user;
-import com.bt_121shoppe.motorbike.Api.api.model.User_Detail;
 import com.bt_121shoppe.motorbike.adapters.CustomView;
 import com.bt_121shoppe.motorbike.adapters.ColorAdapter;
 import com.bt_121shoppe.motorbike.Api.api.Client;
 import com.bt_121shoppe.motorbike.Api.api.Service;
 import com.bt_121shoppe.motorbike.Api.api.model.UserResponseModel;
-import com.bt_121shoppe.motorbike.Api.api.model.dealershop;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseCondition;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseYear;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseType;
@@ -69,17 +65,12 @@ import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseCategory;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseTypeCate;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseBrand;
 import com.bt_121shoppe.motorbike.BottomSheetDialog.BottomChooseModel;
-import com.bt_121shoppe.motorbike.Login_Register.Register;
 import com.bt_121shoppe.motorbike.chats.ChatMainActivity;
 import com.bt_121shoppe.motorbike.firebases.FBPostCommonFunction;
 import com.bt_121shoppe.motorbike.fragments.FragmentMap;
-import com.bt_121shoppe.motorbike.loan.child.one;
 import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.models.CreatePostModel;
-import com.bt_121shoppe.motorbike.models.PostDealerShopViewModel;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
-import com.bt_121shoppe.motorbike.models.UserShopViewModel;
-import com.bt_121shoppe.motorbike.stores.StoreListActivity;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -91,17 +82,8 @@ import com.bt_121shoppe.motorbike.utils.FileCompressor;
 import com.bt_121shoppe.motorbike.utils.ImageUtil;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.google.android.gms.common.util.ArrayUtils;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.karumi.dexter.listener.PermissionRequest;
@@ -206,6 +188,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private int[]    shopIdListItems;
     String account_to_camera,chat_to_camera;
     Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -255,7 +238,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
         bundle = getIntent().getExtras();
         if (bundle!=null) {
-            shopId=bundle.getInt("shopId",0);
+            shopId             = bundle.getInt("shopId",0);
             //Log.e(TAG,"create post shop Id "+shopId);
             post               = bundle.getString("post");
             road               = bundle.getString("road");
@@ -353,15 +336,18 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             seekbar_screw.setProgress(seekbar_screww);
             seekbar_rear.setProgress(seekbar_rearr);
             etMap.setText(road);
+            System.out.println("Show address"+ road);
             setColor(FunctionColor.selectItemColor(strColor));
 
             if(category == 1){
                 layout_estimate.setVisibility(View.GONE);
                 tvType_elec.setVisibility(View.VISIBLE);
                 tvType_cate.setVisibility(View.VISIBLE);
+                type_alert.setVisibility(View.VISIBLE);
             }else {
                 tvType_elec.setVisibility(View.GONE);
                 tvType_cate.setVisibility(View.GONE);
+                type_alert.setVisibility(View.GONE);
                 if (condition != null){
                     if (condition.equals("used") || condition.equals("ប្រើប្រាស់រួច")){
                         layout_estimate.setVisibility(View.VISIBLE);
@@ -464,8 +450,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             getLocation(true,"");
         }
-        initialUserInformation(pk,Encode);
-
+        initialUserInformation(pk, Encode);
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -769,6 +754,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } else if (category == 1 && tvType_cate.getText().toString().length()==0){
                     tvType_cate.requestFocus();
                 } else if (bundle!=null) {
+                    year_alert.setText("");
                     selectedColor = FunctionColor.getItemColor(strColor);
                     if (selectedColor.size() < 1) {  // validation color
                         LayoutInflater factory = LayoutInflater.from(Camera.this);
@@ -790,10 +776,33 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         });
                         clearDialog.show();
                     }else {
-                        mProgress.show();
-                        EditPost_Approve(Encode, edit_id);
+                        if (tvCondition.getText().toString().isEmpty()) {  // validation condition
+                            LayoutInflater factory = LayoutInflater.from(Camera.this);
+                            final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                            final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                            clearDialog.setView(clearDialogView);
+                            clearDialog.setCancelable(false);
+                            TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                            Mssloan.setText(R.string.invalid_condition);
+                            TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                            title.setText(R.string.for_loan_title);
+                            Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                            btnYes.setText(R.string.ok);
+                            clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    clearDialog.dismiss();
+                                }
+                            });
+                            clearDialog.show();
+                        } else {
+                            conditon_alert.setText("");
+                            mProgress.show();
+                            EditPost_Approve(Encode, edit_id);
+                        }
                     }
-                } else  {
+                } else {
+                    year_alert.setText("");
                     selectedColor = FunctionColor.getItemColor(strColor);
                     if (selectedColor.size() < 1) {  // validation color
                         LayoutInflater factory = LayoutInflater.from(Camera.this);
@@ -814,9 +823,31 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                             }
                         });
                         clearDialog.show();
-                    }else {
-                        mProgress.show();
-                        EditPost_Approve(Encode, edit_id);
+                    } else {
+                        if (tvCondition.getText().toString().isEmpty()) {  // validation condition
+                            LayoutInflater factory = LayoutInflater.from(Camera.this);
+                            final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                            final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                            clearDialog.setView(clearDialogView);
+                            clearDialog.setCancelable(false);
+                            TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                            Mssloan.setText(R.string.invalid_condition);
+                            TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                            title.setText(R.string.for_loan_title);
+                            Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                            btnYes.setText(R.string.ok);
+                            clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    clearDialog.dismiss();
+                                }
+                            });
+                            clearDialog.show();
+                        } else {
+                            conditon_alert.setText("");
+                            mProgress.show();
+                            EditPost_Approve(Encode, edit_id);
+                        }
                     }
                 }
             }
@@ -882,7 +913,17 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         category_alert.setText(getString(R.string.invalid_category));
                         category_alert.setTextColor(getColor(R.color.red));
                         tvCategory.requestFocus();
-                    }else category_alert.setText("");
+                    }else {
+                        category_alert.setText("");
+                        if (category==1) {
+                            if (tvType_cate.getText().toString().isEmpty()) {
+                                type_alert.setText(R.string.missing_type_cate);
+                                type_alert.setTextColor(getColor(R.color.red));
+                            } else {
+                                type_alert.setText("");
+                            }
+                        }
+                    }
                     if (tvPostType.getText().toString().length()==0){
                         post_type_alert.setText(getString(R.string.invalid_post_type));
                         post_type_alert.setTextColor(getColor(R.color.red));
@@ -924,6 +965,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 } else if (category == 1 && tvType_cate.getText().toString().length()==0){
                     tvType_cate.requestFocus();
                 } else if (bundle!=null) {
+                    year_alert.setText("");
                     selectedColor = FunctionColor.getItemColor(strColor);
                     if (selectedColor.size() < 1) {  // validation color
                         LayoutInflater factory = LayoutInflater.from(Camera.this);
@@ -945,16 +987,39 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         });
                         clearDialog.show();
                     }else {
-                        mProgress.show();
-                        if (process_type == 0) {
-                            if (cate == 2) {
-                                type = Integer.parseInt(tvType_cate.getText().toString());
+                        if (tvCondition.getText().toString().isEmpty()) {  // validation condition
+                            LayoutInflater factory = LayoutInflater.from(Camera.this);
+                            final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                            final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                            clearDialog.setView(clearDialogView);
+                            clearDialog.setCancelable(false);
+                            TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                            Mssloan.setText(R.string.invalid_condition);
+                            TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                            title.setText(R.string.for_loan_title);
+                            Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                            btnYes.setText(R.string.ok);
+                            clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    clearDialog.dismiss();
+                                }
+                            });
+                            clearDialog.show();
+                        } else {
+                            conditon_alert.setText("");
+                            mProgress.show();
+                            if (process_type == 0) {
+                                if (cate == 2) {
+                                    type = Integer.parseInt(tvType_cate.getText().toString());
+                                }
+                                //Log.d("Type id brs", String.valueOf(type));
+                                PostData(Encode);
                             }
-                            //Log.d("Type id brs", String.valueOf(type));
-                            PostData(Encode);
                         }
                     }
                 } else  {
+                    year_alert.setText("");
                     selectedColor = FunctionColor.getItemColor(strColor);
                     if (selectedColor.size() < 1) {  // validation color
                         LayoutInflater factory = LayoutInflater.from(Camera.this);
@@ -976,8 +1041,30 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         });
                         clearDialog.show();
                     }else {
-                        mProgress.show();
-                        PostData(Encode);
+                        if (tvCondition.getText().toString().isEmpty()) {  // validation condition
+                            LayoutInflater factory = LayoutInflater.from(Camera.this);
+                            final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+                            final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+                            clearDialog.setView(clearDialogView);
+                            clearDialog.setCancelable(false);
+                            TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+                            Mssloan.setText(R.string.invalid_condition);
+                            TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+                            title.setText(R.string.for_loan_title);
+                            Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+                            btnYes.setText(R.string.ok);
+                            clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    clearDialog.dismiss();
+                                }
+                            });
+                            clearDialog.show();
+                        } else {
+                            conditon_alert.setText("");
+                            mProgress.show();
+                            PostData(Encode);
+                        }
                     }
                 }
             }
@@ -1128,29 +1215,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                         });
                                         clearDialog.show();
                                     }
-//                                    else {
-//                                        selectedColor = FunctionColor.getItemColor(strColor);
-//                                        if (selectedColor.size() < 1) {  // validation color
-//                                            LayoutInflater factory = LayoutInflater.from(Camera.this);
-//                                            final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
-//                                            final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
-//                                            clearDialog.setView(clearDialogView);
-//                                            clearDialog.setCancelable(false);
-//                                            TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
-//                                            Mssloan.setText(R.string.missing_color);
-//                                            TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
-//                                            title.setText(R.string.for_loan_title);
-//                                            Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
-//                                            btnYes.setText(R.string.ok);
-//                                            clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
-//                                                @Override
-//                                                public void onClick(View v) {
-//                                                    clearDialog.dismiss();
-//                                                }
-//                                            });
-//                                            clearDialog.show();
-//                                        }
-//                                    }
                                 }
                             }
                         }
@@ -1215,29 +1279,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                     });
                                     clearDialog.show();
                                 }
-//                                else {
-//                                    selectedColor = FunctionColor.getItemColor(strColor);
-//                                    if (selectedColor.size() < 1) {  // validation color
-//                                        LayoutInflater factory = LayoutInflater.from(Camera.this);
-//                                        final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
-//                                        final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
-//                                        clearDialog.setView(clearDialogView);
-//                                        clearDialog.setCancelable(false);
-//                                        TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
-//                                        Mssloan.setText(R.string.missing_color);
-//                                        TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
-//                                        title.setText(R.string.for_loan_title);
-//                                        Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
-//                                        btnYes.setText(R.string.ok);
-//                                        clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(View v) {
-//                                                clearDialog.dismiss();
-//                                            }
-//                                        });
-//                                        clearDialog.show();
-//                                    }
-//                                }
                             }
                         }
                     }
@@ -1298,7 +1339,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 }else if (process_type == 1){
                     startActivity(new Intent(Camera.this,Account.class));
-                    overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 }else if (post != null){
                     startActivity(new Intent(Camera.this,Home.class));
                     overridePendingTransition(R.anim.left_in, R.anim.right_out);
@@ -1389,8 +1430,8 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                 String locat = object.getString("contact_address");
                                 if (!locat.isEmpty()) {
                                     String add[] = locat.split(",");
-                                    Double latetitude = Double.parseDouble(add[0]);
-                                    Double longtitude = Double.parseDouble(add[1]);
+                                    double latetitude = Double.parseDouble(add[0]);
+                                    double longtitude = Double.parseDouble(add[1]);
                                     try {
                                         addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
                                         String road = addresses.get(0).getAddressLine(0);
@@ -1465,6 +1506,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                                 type = 3;
                                                 tvType_elec.setVisibility(View.GONE);
                                                 tvType_cate.setVisibility(View.GONE);
+                                                type_alert.setVisibility(View.GONE);
                                                 if (condition.equals("New")){
                                                     tvCondition.setText(R.string.newl);
                                                     condition1 = "new";
@@ -1476,6 +1518,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                             } else {
                                                 tvType_elec.setVisibility(View.VISIBLE);
                                                 tvType_cate.setVisibility(View.VISIBLE);
+                                                type_alert.setVisibility(View.VISIBLE);
                                                 if (condition.equals("New")){
                                                     tvCondition.setText(R.string.newl);
                                                     condition1 = "new";
@@ -1658,8 +1701,8 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                     if (!locat.isEmpty()) {
                         latlng = locat;
                         String add[] = locat.split(",");
-                        Double latetitude = Double.parseDouble(add[0]);
-                        Double longtitude = Double.parseDouble(add[1]);
+                        double latetitude = Double.parseDouble(add[0]);
+                        double longtitude = Double.parseDouble(add[1]);
                         try {
                             addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
                             String road = addresses.get(0).getAddressLine(0);
@@ -1742,7 +1785,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     }
 
     private void initialUserInformation(int pk, String encode) {
-
         if(shopId==0){
             final String url = String.format("%s%s%s/", ConsumeAPI.BASE_URL, "api/v1/users/", pk);
             MediaType MEDIA_TYPE = MediaType.parse("application/json");
@@ -1801,11 +1843,26 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                                     }
 
                                     String user_map=converJsonJava.getProfile().getResponsible_officer();
-                                    if(!user_map.isEmpty()){
-                                        Log.e("TAG","dfadfadsf Location "+user_map);
-                                        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-                                        getLocation(false,user_map);
+                                    if (bundle!=null) {
+                                        road = bundle.getString("road");
+                                        System.out.println("This is address ler"+road);
+                                    }else {
+                                        if (!user_map.isEmpty()) {
+                                            Log.e("TAG", "dfadfadsf Location " + user_map);
+                                            locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                                            getLocation(false, user_map);
+                                            System.out.println("This is address krom");
+                                        }
                                     }
+                                   if (account_to_camera!=null || chat_to_camera!=null){
+                                       if (!user_map.isEmpty()) {
+                                           Log.e("TAG", "dfadfadsf Location " + user_map);
+                                           locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                                           getLocation(false, user_map);
+                                           System.out.println("This is address krom");
+                                       }
+                                   }
+
                                     //dealer shop section
                                     if (g == 3) {
 //                                        txtOther_main.setVisibility(View.VISIBLE);
@@ -3171,24 +3228,24 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 selectedColor.add(position);
             }
             if (selectedColor.size()==0){
-                LayoutInflater factory = LayoutInflater.from(Camera.this);
-                final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
-                final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
-                clearDialog.setView(clearDialogView);
-                clearDialog.setCancelable(false);
-                TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
-                Mssloan.setText(R.string.missing_color);
-                TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
-                title.setText(R.string.for_loan_title);
-                Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
-                btnYes.setText(R.string.ok);
-                clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clearDialog.dismiss();
-                    }
-                });
-                clearDialog.show();
+//                LayoutInflater factory = LayoutInflater.from(Camera.this);
+//                final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
+//                final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
+//                clearDialog.setView(clearDialogView);
+//                clearDialog.setCancelable(false);
+//                TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
+//                Mssloan.setText(R.string.missing_color);
+//                TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
+//                title.setText(R.string.for_loan_title);
+//                Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
+//                btnYes.setText(R.string.ok);
+//                clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        clearDialog.dismiss();
+//                    }
+//                });
+//                clearDialog.show();
             }
             Log.e("select color",""+selectedColor);
             if (selectedColor.size() > 2 ){
@@ -3269,6 +3326,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 showBottomCategory(view);
             }
         });
+        // type cate
         tvType_cate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -4174,9 +4232,11 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
             layout_estimate.setVisibility(View.GONE);
             tvType_elec.setVisibility(View.VISIBLE);
             tvType_cate.setVisibility(View.VISIBLE);
+            type_alert.setVisibility(View.VISIBLE);
         }else {
             tvType_elec.setVisibility(View.GONE);
             tvType_cate.setVisibility(View.GONE);
+            type_alert.setVisibility(View.GONE);
             if (con.equals("Used") || con.equals("ប្រើប្រាស់រួច")) {
                 layout_estimate.setVisibility(View.VISIBLE);
             }else {
@@ -4191,7 +4251,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         tvPostType.setText(item);
     }
 
-    private void getLocation(boolean isCurent,@Nullable String user_map) {
+    private void getLocation(boolean isCurent, @Nullable String user_map) {
         if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                 (this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
@@ -4211,13 +4271,17 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                 try{
                     Geocoder geocoder = new Geocoder(this);
-                    List<Address> addressList = null;
-                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
-                    String road = addressList.get(0).getAddressLine(0);
-                    if (road != null) {
-                        if (road.length() > 30) {
-                            String loca = road.substring(0,30) + "...";
-                            etMap.setText(loca);
+                    List<Address> addressList;
+                    addressList = geocoder.getFromLocation(latitude, longtitude, 1);
+                    if (!addressList.isEmpty()) {
+                        System.out.println("Address "+addressList);
+//                        addressList = geocoder.getFromLocation(latitude, longtitude, 1);
+                        String road = addressList.get(0).getAddressLine(0);
+                        if (road != null) {
+                            if (road.length() > 30) {
+                                String loca = road.substring(0, 30) + "...";
+                                etMap.setText(loca);
+                            }
                         }
                     }
                 }catch (IOException e){

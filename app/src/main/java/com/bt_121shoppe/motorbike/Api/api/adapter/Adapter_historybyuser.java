@@ -98,7 +98,7 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
         String iditem=String.valueOf((int)model.getId());
         view.btn_unlike.setVisibility(View.GONE);
 
-        Double rs_price = 0.0;
+        double rs_price = 0.0;
  //Close by Raksmey
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 //        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -287,6 +287,8 @@ public class Adapter_historybyuser extends RecyclerView.Adapter<Adapter_historyb
             if (model.getStatus() == 5){
                 intent.putExtra("rejected", 5);
             }
+
+
 //            if (change_status.getStatus()==2){
 //                intent.putExtra("Sold_Remove",status);
 //            }

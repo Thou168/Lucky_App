@@ -1387,8 +1387,8 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                                 String addr = convertJsonJava.getProfile().getResponsible_officer();
                                 if (!addr.isEmpty()) {
                                     String add[] = addr.split(",");
-                                    Double latetitude = Double.parseDouble(add[0]);
-                                    Double longtitude = Double.parseDouble(add[1]);
+                                    double latetitude = Double.parseDouble(add[0]);
+                                    double longtitude = Double.parseDouble(add[1]);
                                     try {
                                         addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
                                         String road = addresses.get(0).getAddressLine(0);

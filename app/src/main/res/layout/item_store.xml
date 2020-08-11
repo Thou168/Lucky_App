@@ -207,16 +207,14 @@
             android:orientation="horizontal"
             android:background="#F4F4F4"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="30dp">
             <Button
-                android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginRight="@dimen/dp_16"
                 android:id="@+id/btn_renew"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00FFFFFF"
                 android:gravity="center"
+                android:layout_weight="1"
                 android:text="@string/renew"
                 android:textAllCaps="false" />
             <Button
@@ -225,17 +223,17 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:gravity="center"
-                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_weight="1"
                 android:background="#00FFFFFF"
                 android:text="@string/button_remove" />
 
             <Button
-                android:layout_marginLeft="@dimen/dp_8"
                 android:id="@+id/btnsold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:gravity="center"
+                android:layout_weight="1"
                 android:background="#00FFFFFF"
                 android:fontFamily="@font/opensans_semibold"
                 android:text="@string/sold" />
@@ -245,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:background="#00FFFFFF"
                 android:gravity="center"
-                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_weight="1"
                 android:fontFamily="@font/opensans_semibold"
                 android:text="@string/button_edit"
                 android:textAllCaps="false" />

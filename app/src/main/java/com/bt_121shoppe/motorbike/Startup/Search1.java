@@ -69,7 +69,7 @@ public class Search1 extends AppCompatActivity {
     //seekbar
     int min;
     int max;
-
+    String json_count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,7 +197,7 @@ public class Search1 extends AppCompatActivity {
                             not_found.setVisibility(View.VISIBLE);
                             show_view.setText("0");
                         }else {
-                            show_view.setText(String.valueOf(count));
+//                            show_view.setText(String.valueOf(count));
                             cardView.setVisibility(View.GONE);
                             not_found.setVisibility(View.GONE);
                             mProgress.setVisibility(View.GONE);
@@ -246,23 +246,24 @@ public class Search1 extends AppCompatActivity {
                                         String mMessage = response1.body().string();
                                         try {
                                             JSONObject object_count = new JSONObject(mMessage);
-                                            String json_count = object_count.getString("count");
+                                            json_count = object_count.getString("count");
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
+
                                                     item_apis.add(new Item_API(id,user_id, img_user, image, postsubtitle, cost, condition, post_type, ago.toString(), json_count,color, model1, year1,discount_type,discount,postsubtitle,category,color_mul));
                                                     MyAdapter_list_grid_image adapterUserPost = new MyAdapter_list_grid_image(item_apis, "List",Search1.this);
                                                     rv.setAdapter(adapterUserPost);
                                                     rv.setLayoutManager(new GridLayoutManager(Search1.this, 1));
+                                                    System.out.println("RV child ?"+ rv.getAdapter().getItemCount());
+                                                    show_view.setText(String.valueOf(rv.getAdapter().getItemCount()));
                                                 }
                                             });
-
                                         } catch (JsonParseException | JSONException e) {
                                             e.printStackTrace();
                                         }
                                     }
                                 });
-
                             }
                         }
                     }catch (JSONException | ParseException e){

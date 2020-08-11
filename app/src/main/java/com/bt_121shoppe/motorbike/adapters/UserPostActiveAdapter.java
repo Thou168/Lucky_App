@@ -257,7 +257,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             }catch (Exception e){Log.d("Error e",e.getMessage());}
 
 
-            if((int) mPost.getStatus()==3){
+            if((int) mPost.getStatus()==3){  // for pending
 //                btRenewal.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
 //                btRenewal.setTextColor(Color.parseColor("#FF9400"));
 //                btRenewal.setText(R.string.pending);
@@ -266,7 +266,7 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                 btSold.setVisibility(View.GONE);
                 btRenewal.setVisibility(View.GONE);
                 user_active.setVisibility(View.GONE);
-            }else{
+            }else if ((int)mPost.getStatus()==4){  // for approve
                 //btRenewal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_autorenew_black_24dp, 0, 0, 0);
                 pending_appprove.setText(R.string.approveval);
                 pending_appprove.setTextColor(Color.parseColor("#43BF64"));
@@ -324,6 +324,16 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
                     });
                     clearDialog.show();
                 });
+
+                btEdit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(itemView.getContext(), Camera.class);
+                        intent.putExtra("process_type", 1);
+                        intent.putExtra("id_product", Integer.parseInt(String.valueOf((int) mPost.getId())));
+                        itemView.getContext().startActivity(intent);
+                    }
+                });
 //                btRenewal.setOnClickListener(v ->
 //                        new AlertDialog.Builder(itemView.getContext())
 //                        .setTitle(R.string.Post_Renewal)
@@ -358,6 +368,22 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 //                        })
 //                        .setNegativeButton(android.R.string.no,null)
 //                        .show());
+            }else {  // for rejected
+                pending_appprove.setText(R.string.reject);
+                pending_appprove.setTextColor(Color.parseColor("#CCCCCC"));
+
+                btRenewal.setVisibility(View.GONE);
+                btSold.setVisibility(View.GONE);
+
+//                btEdit.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(itemView.getContext(), Camera.class);
+//                        intent.putExtra("process_type", 1);
+//                        intent.putExtra("id_product", Integer.parseInt(String.valueOf((int) mPost.getId())));
+//                        itemView.getContext().startActivity(intent);
+//                    }
+//                });
             }
 
             btRemove.setOnClickListener(new View.OnClickListener() {
@@ -420,17 +446,15 @@ public class UserPostActiveAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             });
 //            intent.putExtra("remove",key);
 //            intent.putExtra("sold",key);
-
-            btEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent=new Intent(itemView.getContext(), Camera.class);
-                    intent.putExtra("process_type",1);
-                    intent.putExtra("id_product",Integer.parseInt(String.valueOf((int)mPost.getId())));
-                    itemView.getContext().startActivity(intent);
-                }
-            });
-
+//                btEdit.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(itemView.getContext(), Camera.class);
+//                        intent.putExtra("process_type", 1);
+//                        intent.putExtra("id_product", Integer.parseInt(String.valueOf((int) mPost.getId())));
+//                        itemView.getContext().startActivity(intent);
+//                    }
+//                });
             btSold.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

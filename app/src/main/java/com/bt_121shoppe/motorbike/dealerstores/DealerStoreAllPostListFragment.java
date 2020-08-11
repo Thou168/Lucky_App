@@ -28,12 +28,14 @@ import com.bt_121shoppe.motorbike.Api.api.model.change_status_post;
 import com.bt_121shoppe.motorbike.Product_New_Post.MyAdapter_list_grid_image;
 import com.bt_121shoppe.motorbike.R;
 import com.bt_121shoppe.motorbike.adapters.UserPostActiveAdapter;
+import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.utils.CommonFunction;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -97,6 +99,7 @@ public class DealerStoreAllPostListFragment extends Fragment {
         String userpass = username+":"+password;
         return Base64.encodeToString(userpass.trim().getBytes(), Base64.NO_WRAP);
     }
+
     private void getpostbyuser(){
         Service apiService = Client.getClient().create(Service.class);
         Call<AllResponse> call = apiService.getPostbyuser(basic_Encode);
@@ -108,6 +111,7 @@ public class DealerStoreAllPostListFragment extends Fragment {
                     Log.d("Response", String.valueOf(response.code()));
                 }else {
                     //Log.e("Post",response.body().toString());
+
                     listData=response.body().getresults();
                     if (listData.size() == 0) {
                         progressBar.setVisibility(View.GONE);
@@ -120,7 +124,7 @@ public class DealerStoreAllPostListFragment extends Fragment {
                             long date = 0;
                             try {
                                 date = sdf.parse(listData.get(i).getApproved_date()).getTime()+(15000*60*60*24);
-                                Long now = System.currentTimeMillis();
+                                long now = System.currentTimeMillis();
                                 Long valida = now;
                                 CharSequence ago = DateUtils.getRelativeTimeSpanString(date, now, DateUtils.MINUTE_IN_MILLIS);
 
@@ -148,6 +152,7 @@ public class DealerStoreAllPostListFragment extends Fragment {
 //                    mAdapter = new Adapter_postbyuser(listData, getContext());
                     UserPostActiveAdapter mAdapter=new UserPostActiveAdapter(listData);
                     recyclerView.setAdapter(mAdapter);
+                    System.out.println("Count ? "+recyclerView.getAdapter().getItemCount());
                 }
 
             }

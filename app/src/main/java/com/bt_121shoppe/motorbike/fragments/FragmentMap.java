@@ -402,12 +402,16 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
 
                 try{
                     Geocoder geocoder = new Geocoder(this);
-                    List<Address> addressList = null;
-                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
+//                    List<Address> addressList = null;
+//                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
+                    List<Address> addressList;
+                    addressList = geocoder.getFromLocation(latitude, longtitude, 1);
                     String road = addressList.get(0).getAddressLine(0);
+
                     if (road != null) {
                         if (road.length() > 30) {
                             String loca = road.substring(0,30) + "...";
+                            System.out.println("Address "+loca);
                             et_search.setText(loca);
                         }
                     }

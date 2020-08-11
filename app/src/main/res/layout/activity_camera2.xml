@@ -311,8 +311,6 @@
                     android:focusable="false"
                     android:textColor="#000"
                     android:textSize="8sp" />
-
-
                 <TextView
                     android:id="@+id/title_brand"
                     android:textSize="14sp"

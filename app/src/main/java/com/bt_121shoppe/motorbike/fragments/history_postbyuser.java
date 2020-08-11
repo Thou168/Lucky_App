@@ -117,7 +117,6 @@ public class history_postbyuser extends Fragment {
 //                    }
 //                }
                 //end
-
                 mAdapter = new Adapter_historybyuser(listData,getContext());
                 recyclerView.setAdapter(mAdapter);
             }
