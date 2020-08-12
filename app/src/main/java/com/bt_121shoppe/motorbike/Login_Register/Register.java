@@ -1721,23 +1721,20 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     latitude = location.getLatitude();
                     longtitude = location.getLongitude();
                     lat_long = latitude+","+longtitude;
-                }else {
-                    String[] splitAddr = address.split(",");
-                    latitude = Double.parseDouble(splitAddr[0]);
-                    longtitude = Double.parseDouble(splitAddr[1]);
                 }
-                try {
+
+                try{
                     Geocoder geocoder = new Geocoder(this);
-                    List<Address> addressList;
-                    addressList = geocoder.getFromLocation(latitude, longtitude, 1);
+                    List<Address> addressList = null;
+                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
                     String road = addressList.get(0).getAddressLine(0);
                     if (road != null) {
                         if (road.length() > 30) {
-                            String loca = road.substring(0, 30) + "...";
+                            String loca = road.substring(0,30) + "...";
                             editMap.setText(loca);
                         }
                     }
-                } catch (IOException e) {
+                }catch (IOException e){
                     e.printStackTrace();
                 }
 
