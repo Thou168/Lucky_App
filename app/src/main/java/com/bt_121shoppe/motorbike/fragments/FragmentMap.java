@@ -132,7 +132,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
         process_type       = intent.getIntExtra("process_type",0);
         category_post      = intent.getIntExtra("category_post",0);
         name               = intent.getStringExtra("name_post");
-        color              = intent.getStringExtra("color");
+//        color              = intent.getStringExtra("color");
         cat                = intent.getStringExtra("cat");
         bitmapImage1       = intent.getParcelableExtra("image1");
         bitmapImage2       = intent.getParcelableExtra("image2");
@@ -226,7 +226,7 @@ public class FragmentMap extends AppCompatActivity implements OnMapReadyCallback
                         intent.putExtra("accessories",seekbar_accessorie);
                         intent.putExtra("category_post",category_post);
                         intent.putExtra("cat",cat);
-                        intent.putExtra("color",color);
+//                        intent.putExtra("color",color);
                         intent.putExtra("image1",bitmapImage1);
                         intent.putExtra("image2",bitmapImage2);
                         intent.putExtra("image3",bitmapImage3);

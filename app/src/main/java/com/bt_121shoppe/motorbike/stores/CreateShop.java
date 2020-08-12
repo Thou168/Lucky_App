@@ -890,20 +890,22 @@ public class CreateShop extends AppCompatActivity {
                     geocoder = new Geocoder(getApplication(), Locale.getDefault());
                     if (!locat.isEmpty()) {
                         String add[] = locat.split(",");
-                        Double latetitude = Double.parseDouble(add[0]);
-                        Double longtitude = Double.parseDouble(add[1]);
+                        double latetitude = Double.parseDouble(add[0]);
+                        double longtitude = Double.parseDouble(add[1]);
                         try {
                             addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
-                            String road = addresses.get(0).getAddressLine(0);
-                            if (road.length() > 30) {
-                                String loca = road.substring(0,30) + "...";
-                                if (road != null){
-                                    if (road.length() > 30) {
-                                        String locate = road.substring(0,30) + "...";
-                                        editMap.setText(locate);
+                            if (!addresses.isEmpty()) {
+                                String road = addresses.get(0).getAddressLine(0);
+                                if (road.length() > 30) {
+                                    String loca = road.substring(0, 30) + "...";
+                                    if (road != null) {
+                                        if (road.length() > 30) {
+                                            String locate = road.substring(0, 30) + "...";
+                                            editMap.setText(locate);
+                                        }
+                                    } else {
+                                        editMap.setText(loca);
                                     }
-                                }else {
-                                    editMap.setText(loca);
                                 }
                             }
                         } catch (IOException e) {
@@ -943,26 +945,32 @@ public class CreateShop extends AppCompatActivity {
                         editPhone2.setText(String.valueOf(splitPhone[2]));
                     }
 //                    editPhone.setText(method(stphone));
-                    Geocoder geocoder;
-                    List<Address> addresses;
-                    geocoder = new Geocoder(getApplication(), Locale.getDefault());
+//                    Geocoder geocoder;
+//                    List<Address> addresses;
+//                    geocoder = new Geocoder(getApplication(), Locale.getDefault());
                     String locat = response.body().getShop_address_map();
                     if (!locat.isEmpty()) {
                         String[] add = locat.split(",");
                         double latetitude = Double.parseDouble(add[0]);
                         double longtitude = Double.parseDouble(add[1]);
                         try {
-                            addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
-                            String road = addresses.get(0).getAddressLine(0);
-                            if (road.length() > 30) {
-                                String loca = road.substring(0,30) + "...";
-                                if (road != null){
-                                    if (road.length() > 30) {
-                                        String locatee = road.substring(0,30) + "...";
-                                        editMap.setText(locatee);
+                            Geocoder geocoder = new Geocoder(CreateShop.this);
+                            List<Address> addressList;
+                            addressList = geocoder.getFromLocation(latetitude, longtitude, 1);
+//                            addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
+                            if (!addressList.isEmpty()) {
+                                String road = addressList.get(0).getAddressLine(0);
+                                System.out.println("Road :" + road);
+                                if (road.length() > 30) {
+                                    String loca = road.substring(0, 30) + "...";
+                                    if (road != null) {
+                                        if (road.length() > 30) {
+                                            String locatee = road.substring(0, 30) + "...";
+                                            editMap.setText(locatee);
+                                        }
+                                    } else {
+                                        editMap.setText(loca);
                                     }
-                                }else {
-                                    editMap.setText(loca);
                                 }
                             }
                         } catch (IOException e) {

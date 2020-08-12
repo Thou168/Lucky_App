@@ -22,14 +22,11 @@
                     android:layout_height="?android:attr/actionBarSize"
                     android:background="?attr/colorPrimary"
                     app:popupTheme="@style/AppTheme.PopupOverlay">
-                    <TextView
+                    <ImageView
                         android:id="@+id/tv_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="#fff"
-                        android:gravity="center_vertical"
-                        android:drawableLeft="@drawable/back_arrow_x1"/>
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/back_arrow"/>
 
                     <Button
                         android:id="@+id/add_post"

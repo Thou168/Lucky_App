@@ -188,7 +188,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
     private int[]    shopIdListItems;
     String account_to_camera,chat_to_camera;
     Intent intent;
-
+    int g;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,6 +206,23 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         }else if (prefer.contains("id")) {
             pk = prefer.getInt("id", 0);
         }
+        // get group status
+        Service apiService=Client.getClient().create(Service.class);
+        retrofit2.Call<UserResponseModel> call=apiService.getUserProfile(pk);
+        call.enqueue(new retrofit2.Callback<UserResponseModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<UserResponseModel> call, retrofit2.Response<UserResponseModel> response) {
+                if (response.isSuccessful()) {
+                    g=response.body().getProfile().getGroup();
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<UserResponseModel> call, Throwable t) {
+
+            }
+        });
+
         //Log.d("Pk",""+pk);
         //ButterKnife.bind(this);
         //check active and deactive account by samang 2/09/19
@@ -589,7 +606,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 tv_add.setVisibility(View.VISIBLE);
             }
         });
-        TextView back = (TextView) findViewById(R.id.tv_back);
+        LinearLayout back = (LinearLayout) findViewById(R.id.ln_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1337,8 +1354,13 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 if (register_intent!=null || login_verify!=null){
                     startActivity(new Intent(Camera.this,Home.class));
                     overridePendingTransition(R.anim.left_in, R.anim.right_out);
-                }else if (process_type == 1){
-                    startActivity(new Intent(Camera.this,Account.class));
+                }
+                else if (process_type == 1){
+                    if (g==3){
+                        startActivity(new Intent(Camera.this,DealerStoreActivity.class));
+                    }else {
+                        startActivity(new Intent(Camera.this, Account.class));
+                    }
                     overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 }else if (post != null){
                     startActivity(new Intent(Camera.this,Home.class));
@@ -1705,16 +1727,14 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                         double longtitude = Double.parseDouble(add[1]);
                         try {
                             addresses = geocoder.getFromLocation(latetitude, longtitude, 1);
+                            if (!addresses.isEmpty()) {
                             String road = addresses.get(0).getAddressLine(0);
-                            if (road.length() > 30) {
-                                String loca = road.substring(0,30) + "...";
-                                if (road != null){
+                                if (road.length() > 30) {
+                                    String loca = road.substring(0, 30) + "...";
                                     if (road.length() > 30) {
-                                        String locatee = road.substring(0,30) + "...";
+                                        String locatee = road.substring(0, 30) + "...";
                                         etMap.setText(locatee);
                                     }
-                                }else {
-                                    etMap.setText(loca);
                                 }
                             }
                         } catch (IOException e) {
@@ -3211,7 +3231,6 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
         }
     }
     private void DropDown() {
-
         selectedColor = new ArrayList<>();
         gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
         final ColorAdapter adapter = new ColorAdapter(FunctionColor.itemcolor,getApplication());
@@ -3227,26 +3246,7 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
                 ((CustomView)v).display(true);
                 selectedColor.add(position);
             }
-            if (selectedColor.size()==0){
-//                LayoutInflater factory = LayoutInflater.from(Camera.this);
-//                final View clearDialogView = factory.inflate(R.layout.layout_warnning_dialog, null);
-//                final android.app.AlertDialog clearDialog = new android.app.AlertDialog.Builder(Camera.this).create();
-//                clearDialog.setView(clearDialogView);
-//                clearDialog.setCancelable(false);
-//                TextView Mssloan = (TextView) clearDialogView.findViewById(R.id.textView_message);
-//                Mssloan.setText(R.string.missing_color);
-//                TextView title = (TextView) clearDialogView.findViewById(R.id.textView_title);
-//                title.setText(R.string.for_loan_title);
-//                Button btnYes = (Button) clearDialogView.findViewById(R.id.button_positive);
-//                btnYes.setText(R.string.ok);
-//                clearDialogView.findViewById(R.id.button_positive).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        clearDialog.dismiss();
-//                    }
-//                });
-//                clearDialog.show();
-            }
+
             Log.e("select color",""+selectedColor);
             if (selectedColor.size() > 2 ){
                 LayoutInflater factory = LayoutInflater.from(Camera.this);

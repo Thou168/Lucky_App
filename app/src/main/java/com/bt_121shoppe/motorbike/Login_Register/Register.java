@@ -329,7 +329,6 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         editComfirmPass.setText(re_password);
         editDate.setText(date1);
         editAddress.setText(address);
-
         Glide.with(Register.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -1576,14 +1575,14 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
         }
     }
     private void UpdateData(String image){
-        reference= FirebaseDatabase.getInstance().getReference();
-        fuser= FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference();
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
         if (fuser != null) {
             Query query = reference.child("users").orderByChild(fuser.getUid());
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    reference=FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
+                    reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid());
                     HashMap<String,Object> map=new HashMap<>();
                     map.put("imageURL",image);
                     reference.updateChildren(map);
@@ -1722,20 +1721,23 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
                     latitude = location.getLatitude();
                     longtitude = location.getLongitude();
                     lat_long = latitude+","+longtitude;
+                }else {
+                    String[] splitAddr = address.split(",");
+                    latitude = Double.parseDouble(splitAddr[0]);
+                    longtitude = Double.parseDouble(splitAddr[1]);
                 }
-
-                try{
+                try {
                     Geocoder geocoder = new Geocoder(this);
-                    List<Address> addressList = null;
-                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
+                    List<Address> addressList;
+                    addressList = geocoder.getFromLocation(latitude, longtitude, 1);
                     String road = addressList.get(0).getAddressLine(0);
                     if (road != null) {
                         if (road.length() > 30) {
-                            String loca = road.substring(0,30) + "...";
+                            String loca = road.substring(0, 30) + "...";
                             editMap.setText(loca);
                         }
                     }
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 

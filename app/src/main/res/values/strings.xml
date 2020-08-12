@@ -1103,7 +1103,7 @@
     <string name="invalid_wing_account">Wing Account can`t be empty</string>
     <string name="invalid_category">Category can`t be empty</string>
     <string name="invalid_post_type">Post Type can`t be empty</string>
-    <string name="invalid_year">Invalid Year</string>
+    <string name="invalid_year">Year can`t be empty</string>
     <string name="invalid_model">Model can`t be empty</string>
     <string name="invalid_brand">Brand can`t be empty</string>
     <string name="invalid_price">Price can`t be empty</string>

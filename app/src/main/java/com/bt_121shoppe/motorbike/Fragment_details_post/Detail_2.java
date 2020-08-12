@@ -81,8 +81,10 @@ public class Detail_2 extends Fragment {
     private int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     private GoogleMap mMap;
-    Double latitude= (double) 0;
-    Double longtitude= (double) 0;
+//    Double latitude= (double) 0;
+//    Double longtitude= (double) 0;
+    private double latitude,longtitude;
+
 
     public static final String TAG = "2 Fragement";
     PostViewModel postDetail = new PostViewModel();
@@ -317,15 +319,18 @@ public class Detail_2 extends Fragment {
 
                             //address
                             String addr = postDetail.getContact_address();
+                            String[] splitAddr = addr.split(",");
+
                             if (addr.isEmpty()) {
 
                             } else {
-                                String[] splitAddr = (addr.split(","));
-                                latitude = Double.valueOf(splitAddr[0]);
-                                longtitude = Double.valueOf(splitAddr[1]);
                                 try {
+                                    latitude = Double.parseDouble(splitAddr[0]);
+                                    longtitude = Double.parseDouble(splitAddr[1]);
+
                                     Geocoder geo = new Geocoder(getActivity(), Locale.getDefault());
                                     List<Address> addresses = geo.getFromLocation(latitude, longtitude, 1);
+                                    System.out.println("address is"+addresses);
                                     String select_add = addresses.get(0).getAddressLine(0);
                                     if (addresses.isEmpty()) {
                                         tv_address.setText("no location");
@@ -336,21 +341,22 @@ public class Detail_2 extends Fragment {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-
-                                mapImageView.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        if(ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION)
-                                                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                                                (getContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                                            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
-                                        }else{
-                                            Intent intent=new Intent(getActivity(), PostDetailMapActivity.class);
-                                            intent.putExtra("addresslatlong",addr);
-                                            startActivity(intent);
+                                if (!tv_address.getText().toString().isEmpty()) {
+                                    mapImageView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                                                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                                                    (getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                                            } else {
+                                                Intent intent = new Intent(getActivity(), PostDetailMapActivity.class);
+                                                intent.putExtra("addresslatlong", addr);
+                                                startActivity(intent);
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                }
                             }
                         });
                     }

@@ -16,16 +16,27 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="?attr/colorPrimary">
-            <TextView
-                android:id="@+id/tv_back"
+            <LinearLayout
+                android:id="@+id/ln_back"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/back"
-                android:textStyle="bold"
-                android:textColor="#ffff"
-                android:gravity="center_vertical"
-                android:drawableStart="@drawable/chevron_left_36"/>
-
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/back_btn"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+                <TextView
+                    android:id="@+id/tv_back"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/back"
+                    android:textStyle="bold"
+                    android:textColor="#ffff"/>
+            </LinearLayout>
             <Button
                 android:id="@+id/btnSubmitPost"
                 android:layout_width="60dp"

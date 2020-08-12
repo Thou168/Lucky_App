@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class PostDetailMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -138,33 +139,34 @@ public class PostDetailMapActivity extends AppCompatActivity implements OnMapRea
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
         }else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (location!=null){
-                if(isCurent) {
+            if (location!=null) {
+                if (isCurent) {
                     latitude = location.getLatitude();
                     longtitude = location.getLongitude();
                     //location1 = latitude+","+longtitude;
                 }
-                else{
-                    String[] splitAddr = (addressLatLong.split(","));
-                    latitude = Double.valueOf(splitAddr[0]);
-                    longtitude = Double.valueOf(splitAddr[1]);
-                }
-                try{
-                    Geocoder geocoder = new Geocoder(this);
-                    List<Address> addressList = null;
-                    addressList = geocoder.getFromLocation(latitude,longtitude,1);
-                    String road = addressList.get(0).getAddressLine(0);
-                    if (road != null) {
-                        if (road.length() > 30) {
-                            String loca = road.substring(0,30) + "...";
-                            //et_search.setText(loca);
-                        }
-                    }
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
+                String[] splitAddr = addressLatLong.split(",");
 
-            }else {
+                if (addressLatLong.isEmpty()) {
+
+                } else {
+                    try {
+                        latitude = Double.parseDouble(splitAddr[0]);
+                        longtitude = Double.parseDouble(splitAddr[1]);
+                        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                        List<Address> addressList = geocoder.getFromLocation(latitude, longtitude, 1);
+                        String road = addressList.get(0).getAddressLine(0);
+                        if (road != null) {
+                            if (road.length() > 30) {
+                                String loca = road.substring(0, 30) + "...";
+                                //et_search.setText(loca);
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
                 Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
             }
         }

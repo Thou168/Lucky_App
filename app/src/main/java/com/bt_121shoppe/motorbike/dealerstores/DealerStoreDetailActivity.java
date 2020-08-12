@@ -11,6 +11,7 @@ import android.os.StrictMode;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -49,7 +50,8 @@ public class DealerStoreDetailActivity extends AppCompatActivity implements TabL
     private Button btAdd_post;
     public RelativeLayout layout;
     private CircleImageView img_user;
-    private TextView tv_back,tv_dealer,tv_location,tv_phone;
+    private TextView tv_dealer,tv_location,tv_phone;
+    ImageView tv_back;
     int shopId = 0,pk = 0;
     private String location,storeName,image;
 
@@ -113,8 +115,9 @@ public class DealerStoreDetailActivity extends AppCompatActivity implements TabL
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(DealerStoreDetailActivity.this, DealerStoreActivity.class);
-                startActivity(intent);
+//                Intent intent=new Intent(DealerStoreDetailActivity.this, DealerStoreActivity.class);
+//                startActivity(intent);
+                onBackPressed();
             }
         });
 
@@ -136,6 +139,7 @@ public class DealerStoreDetailActivity extends AppCompatActivity implements TabL
 
     @Override
     public void onBackPressed(){
+        overridePendingTransition(R.anim.left_in,R.anim.right_out);
         finish();
     }
 
