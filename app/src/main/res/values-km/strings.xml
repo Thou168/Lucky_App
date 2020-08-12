@@ -534,18 +534,18 @@
     <string name="about_us_description">នេះជាជាកម្មវិធីទំនើបថ្មីនៅក្នុងព្រះរាជាណាចក្រកម្ពុជា ដែលអ្នកប្រើប្រាស់ ងាយស្រួលប្រើ លឿន រហ័សទាន់ចិត្តនៅក្នុងប្រតិបត្តិការទីផ្សារអនឡាញ ។ កម្មវិធីនេះជួយដល់អ្នកដែលមានបំណងក្នុងការទិញ លក់ ឬជួលនូវផលិផលផ្សេងៗនៅជិតៗខ្លួន ។ កម្មវិធីនេះ គឺជាអនាគតនៃអាជីវកម្មតាមបែប E-Commerce នៅក្នុងព្រះរាជាណាចក្រកម្ពុជា ដែលមានទិសដៅជួយសម្រួល និងបំពេញកង្វះខាតក្នុងទីផ្សារ ជំនួសដោយដំណោះស្រាយដ៏ទំនើបថ្មីមួយ។
         ឧទាហរណ៍ដូចជាការចុះឈ្មោះបើកគណនីមួយដើម្បីទិញ លក់ ឬជួលផលិតផលដោយមានព័ត៌មានលំអិតច្បាស់លាស់ ការសម្គាល់ទីតាំងនៃហាងទំនិញនៅលើផែនទី ការជួយឲ្យអ្នកប្រើប្រាស់ស្គាល់អ្នកប្រកាសទិញ លក់ ឬជួលផលិតផលច្បាស់លាស់ ។ អ្នកប្រើប្រាស់ អាចប្រើកម្មវិធីនេះតាមរយៈគេហទំព័រ ឬទាញយកកម្មវិធីនេះដោយឥតគិតថ្លៃពី App Store, Play Store ឬ Google Play ។
     </string>
-    <string name="term_privacy_heading">គោលការណ៍ឯកជនភាព</string>
+    <string name="term_privacy_heading">1) គោលការណ៍ឯកជនភាព</string>
     <string name="term_privacy_description">គោលការណ៍ឯកជនភាពនេះ បង្ហាញអំពីការទទួលខុសត្រូវនៃវិធីដែលកម្មវិធីទិញ លក់ ជួល ផលិតផលតាមអនឡាញ ១២១ ក្នុងការប្រមូលការប្រើប្រាស់ និងការរក្សាទុកព័ត៌មានផ្ទាល់ខ្លួនរបស់អ្នកប្រើប្រាស់ ។ ភាពឯកជនរបស់អ្នកប្រើប្រាស់ គឺសំខាន់បំផុតយើងខ្ញុំ ដូច្នេះយើងខ្ញុំប្រមូលតែទិន្នន័យ និងព័ត៌មានដែលត្រូវការចាំបាច់សម្រាប់តែដើម្បីជួយឲ្យកម្មវិធីនេះ ដំណើរការបានត្រឹមត្រូវ និងរលូនប៉ុណ្ណោះ ។
           គោលការណ៍ឯកជនភាពនេះ ចូលជាធរមាននៅថ្ងៃទី ០១ ខែសីហា ឆ្នាំ ២០១៩ តទៅ ។ បើអ្នកប្រើប្រាស់កម្មវិធីទិញ លក់ ជួល ផលិតផលតាមអនឡាញ ១២១  យល់ព្រមតាមគោលការណ៍ឯកជនភាពនេះ អ្នកប្រើប្រាស់គួរតែពិនិត្យមើលកម្មវិធីនេះ ឲ្យបានញឹកញាប់ដើម្បីប្រាកដថាអ្នកប្រើប្រាស់យល់ច្បាស់អំពីការផ្លាស់ប្តូរណាមួយ ។
     </string>
-    <string name="rigth_suspend">សិទ្ធិក្នុងការផ្អាកឬបញ្ឈប់</string>
+    <string name="rigth_suspend">2) សិទ្ធិក្នុងការផ្អាកឬបញ្ឈប់</string>
     <string name="right_suspend_description">អ្នកប្រើប្រាស់យល់ព្រមថា កម្មវិធីនេះ មានឆន្ទានុសិទ្ធិក្នុងការបញ្ចប់ការប្រកាសទិញ លក់ ឬជួល ឬការប្រើប្រាស់សេវាកម្មភ្លាមៗ និងដោយគ្មានការជូនដំណឹងជាមុន\n
 (ក) អ្នកប្រើប្រាស់មិនគោរពតាមច្បាប់ទូទៅនៃកម្មវិធីនេះទេ\n
 (ខ) អ្នកប្រើប្រាស់បានរំលោភលក្ខខណ្ឌម្តងហើយម្តងទៀត​\n​(គ) អ្នកប្រើប្រាស់ប្រកាសទិញ លក់ ឬជួលផលិតផលដែលមានបញ្ហាគួរឲ្យសង្ស័យ
 
     </string>
 
-    <string name="general_term">លក្ខខណ្ឌទូទៅ</string>
+    <string name="general_term">3) លក្ខខណ្ឌទូទៅ</string>
     <string name="general_term_description">កម្មវិធីនេះត្រូវបានបង្កើតឡើងដើម្បីជាបទពិសោធន៍មិត្តភាពរីករាយ និងមានប្រយោជន៍ ប៉ុន្តែបើមានអ្វីដែលទាក់ទងនឹងប្រតិបត្តិការដែលមានហានិភ័យណាមួយ យើងសូមណែនាំអ្នកប្រើប្រាស់ឲ្យយល់គ្រប់លក្ខខណ្ឌទាំងអស់នេះមុនពេលដាក់ប្រកាសទិញ លក់ ឬជួល ។កម្មវិធីនេះដើរតួជាអេក្រង់សម្រាប់អ្នកទិញ/អ្នកលក់/អ្នកជួលដើម្បីប្រកាសទិញ លក់ ឬជួល និងសម្រាប់អ្នកទិញ/អ្នកលក់/អ្នកជួលដើម្បីដេញថ្លៃ ឬទិញអ្វីដែលអ្នកទិញ អ្នកលក់ ឬអ្នកជួលបានប្រកាស ។ យើងខ្ញុំ មិនពាក់ព័ន្ធនឹងប្រតិបត្តិការផ្ទាល់រវាងអ្នកទិញ អ្នកលក់ និងអ្នកជួលទេ ។ ជាលទ្ធផល យើងខ្ញុំមិនមានការត្រួតពិនិត្យលើគុណភាព សុវត្ថិភាព ឬភាពស្របច្បាប់នៃផលិតផលដែលបានប្រកាសទិញ លក់ ជួលនោះថាជាការពិត ឬត្រឹមត្រូវនោះទេ ។ យើងមិនអាច និងមិនត្រួតពិនិត្យថាតើអ្នកទិញ អ្នកលក់ អ្នកជួល នឹងបញ្ចប់ការប្រកាសទិញ លក់ ជួលផលិតផលដែលពួកគេផ្តល់ ឬអ្នកទិញ អ្នកជួលនឹងបញ្ចប់ការទិញ ឬជួលផលិតផលដែលត្រូវបានបានដាក់ប្រកាសនោះឡើយ ។លើសពីនេះទៀតកម្មវិធីនេះ មិនទទួលខុសត្រូវចំពោះផលិតផលណាមួយដែលបានប្រកាសទិញ/លក់/ជួលតាមរយៈនេះទេ សម្រាប់ការខូចខាតណាមួយក្នុងអំឡុងពេលនៃការត្រួតពិនិត្យ ឬក៏មិនមែនសម្រាប់ការបង្ហាញខុស ឬការរំលោភកិច្ចសន្យាដោយអ្នកទិញ អ្នកលក់ ឬអ្នកជួល ។កម្មវិធីនេះ នឹងមិនទទួលខុសត្រូវចំពោះថ្លៃដើមនៃការផ្គត់ផ្គង់ទំនិញជំនួស ឬការខាតបង់ណាមួយដែលកើតចេញពីផលិតផលដែលបានទិញ ឬបានទទួលឡើយ ។កម្មវិធីនេះ មិនមានការទទួលខុសត្រូវចំពោះខ្លឹមសារនៃផលិតផលដែលបានប្រកាសទិញ លក់ ជួលឡើយ ។ ទោះយ៉ាងណាក៏ដោយប្រសិនបើអ្នកប្រើប្រាស់ក្លាយជាជនរងគ្រោះនៃប្រតិបត្តិការឆបោក យើងខ្ញុំនឹងជួយអ្នកប្រើប្រាស់ឲ្យអស់ពីលទ្ធភាពរបស់យើងខ្ញុំ ។
 </string>
     <string name="condittion_verify">យើងនឹងផ្ញើកូដផ្ទៀងផ្ទាត់ទៅកាន់លេខនេះ។ អ្នកគ្រាន់តែបញ្ចូលកូដដែលទទួលបានពីសារនៅទីនេះ</string>
@@ -1005,4 +1005,19 @@
     <string name="dialog_camera">ម៉ាស៊ីនថត</string>
     <string name="add_post">បន្ថែមការប្រកាស</string>
     <string name="ms_reset_password">ពាក្យសម្ងាត់របស់អ្នកត្រូវបានកំណត់ឡើងវិញ។</string>
+
+    <string name="term_of_prim">1) Privacy Policy
+
+This Privacy Policy describes how 121 Online Market Platform (website, tools, apps and services) is responsible for collection, using and retain of personal information. Your privacy is important to us, so we collect only the data that we really need to let this App run smoothly and properly. This privacy policy enter into force on 1st Aug, 2019. By using the 121 Online Market Platform agree with this PRIVACY POLICY. You should check this page occasionally to ensure you are familiar with any changes.
+
+2) Rights to Suspend or Terminate
+
+You agree that this App, in its own discretion, may terminate any listing or use of the service immediately and without notice if
+(a) You are not abiding by the general rules of this App
+(b) You have repeatedly broken a certain term
+(c) You have listed a suspicious item
+
+3) General Terms
+
+This App is intended to be a friendly, enjoyable and useful experience, but as with anything concerning any kind of transactions there are risks involved and we strongly advise you to understand all of these terms before submitting the listing. This App acts as the screen for sellers/lessors to post listings and for buyers/lessees to bid/purchase on seller or lessor\'s listings. We are not involved in the actual transaction between buyers/lessees and sellers/lessors. As a result, we have no control over the quality, safety or legality of the items listed the truth or accuracy of the product listings, We cannot and do not control whether or not sellers/lessors will complete the sale/rent of items they offer or buyers/lessees will complete the purchases/rent of items they have bid on. In addition, This App shall not be responsible for any items sold/rent through it, for any damage to items during the inspection period, nor for misrepresentations or breaches of contract by either buyer, lessee, seller or lessor. This App shall not be responsible for the cost of procurement of substitute goods or any losses resulting from any goods purchased or obtained. This App assumes no liability for the content of the listings. However if you fall victim of a fraudulent transaction, we will assist you as much as we can.</string>
 </resources>
