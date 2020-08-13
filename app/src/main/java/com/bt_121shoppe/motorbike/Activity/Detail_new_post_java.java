@@ -71,7 +71,10 @@ import com.bt_121shoppe.motorbike.models.PostViewModel;
 import com.bt_121shoppe.motorbike.newversion.CustomViewPager;
 import com.custom.sliderimage.logic.SliderImage;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
@@ -151,6 +154,10 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
     String login_verify;
     Bundle bundle;
     ProgressDialog pd;
+
+    //share fb
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -301,13 +308,23 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
         }
 
         //share to facebook
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("https://developers.facebook.com"))
-                .build();
+
+//        ShareLinkContent content = new ShareLinkContent.Builder()
+//                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+//                .build();
+
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(Detail_new_post_java.this);
         btn_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Share",Toast.LENGTH_SHORT).show();
+                // this part is optional
+                if (ShareDialog.canShow(ShareLinkContent.class)) {
+                    ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                            .setContentUrl(Uri.parse("http://121shoppe.com/detail_product/" + postId))
+                            .build();
+                    shareDialog.show(linkContent);
+                }
             }
         });
 

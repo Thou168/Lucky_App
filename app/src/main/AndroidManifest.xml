@@ -325,6 +325,10 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
+        <provider android:authorities="com.facebook.app.FacebookContentProvider{596607940863011}"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
+
         <service
             android:name=".firebases.classes.MyFirebaseMessagingService"
             android:enabled="true"
