@@ -225,19 +225,7 @@ public class CreateShop extends AppCompatActivity {
 
         img_shop.setOnClickListener(view -> selectImage());
         tv_back.setOnClickListener(view -> {
-           if (edit != null){
-               Intent intent12 = new Intent(CreateShop.this, DealerStoreDetailActivity.class);
-               intent12.putExtra("edit_store",intent_edit);
-               intent12.putExtra("shopId",mDealerShopId);
-               intent12.putExtra("shop_name",storeName);
-               intent12.putExtra("address",storeLocation);
-               intent12.putExtra("shop_image",storeImage);
-               startActivity(intent12);
-           }else if (register != null){
-               Intent intent12 = new Intent(CreateShop.this, Register.class);
-               startActivity(intent12);
-           }else
-               finish();
+           onBackPressed();
         });
 //        editAddress.setOnClickListener(view ->
 //                //AlertDialog(provine,editAddress)
@@ -556,6 +544,9 @@ public class CreateShop extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         mProgress.dismiss();
+                        if (intent_edit != null){
+                            startActivity(new Intent(CreateShop.this, DealerStoreDetailActivity.class));
+                        }
                         startActivity(new Intent(CreateShop.this, DealerStoreActivity.class));
                     }
                 });
@@ -716,7 +707,28 @@ public class CreateShop extends AppCompatActivity {
             je.printStackTrace();
         }
     }
-    private void postNewCard(NewCardViewModel newCard,String encode){
+
+    @Override
+    public void onBackPressed() {
+        if (edit != null || intent_edit != null){
+            Intent intent12 = new Intent(CreateShop.this, DealerStoreDetailActivity.class);
+            intent12.putExtra("edit_store",intent_edit);
+            intent12.putExtra("shopId",mDealerShopId);
+            intent12.putExtra("shop_name",storeName);
+            intent12.putExtra("address",storeLocation);
+            intent12.putExtra("shop_image",storeImage);
+            startActivity(intent12);
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
+        }else if (register != null){
+            Intent intent12 = new Intent(CreateShop.this, Register.class);
+            startActivity(intent12);
+        }else {
+            startActivity(new Intent(CreateShop.this, DealerStoreActivity.class));
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
+        }
+    }
+
+    private void postNewCard(NewCardViewModel newCard, String encode){
         Log.e("wing account",""+newCard.getWing_account());
         Log.e("wing number",newCard.getWing_number());
         Log.e("Shop ID",""+newCard.getShopId());
@@ -861,6 +873,7 @@ public class CreateShop extends AppCompatActivity {
                         if (road.length() > 30) {
                             String loca = road.substring(0,30) + "...";
                             editMap.setText(loca);
+                            System.out.println("LC is "+loca);
                         }
                     }
                 }catch (IOException e){
@@ -903,6 +916,7 @@ public class CreateShop extends AppCompatActivity {
                                             String locate = road.substring(0, 30) + "...";
                                             editMap.setText(locate);
                                         }
+                                        System.out.println("Get LC is "+ road);
                                     } else {
                                         editMap.setText(loca);
                                     }
@@ -949,6 +963,7 @@ public class CreateShop extends AppCompatActivity {
 //                    List<Address> addresses;
 //                    geocoder = new Geocoder(getApplication(), Locale.getDefault());
                     String locat = response.body().getShop_address_map();
+                    System.out.println("Location  "+ locat);
                     if (!locat.isEmpty()) {
                         String[] add = locat.split(",");
                         double latetitude = Double.parseDouble(add[0]);
@@ -967,6 +982,8 @@ public class CreateShop extends AppCompatActivity {
                                         if (road.length() > 30) {
                                             String locatee = road.substring(0, 30) + "...";
                                             editMap.setText(locatee);
+
+                                            System.out.println("get out shop loca "+ locatee);
                                         }
                                     } else {
                                         editMap.setText(loca);

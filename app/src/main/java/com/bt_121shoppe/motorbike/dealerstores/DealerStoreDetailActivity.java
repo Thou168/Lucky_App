@@ -139,6 +139,7 @@ public class DealerStoreDetailActivity extends AppCompatActivity implements TabL
 
     @Override
     public void onBackPressed(){
+        startActivity(new Intent(DealerStoreDetailActivity.this,DealerStoreActivity.class));
         overridePendingTransition(R.anim.left_in,R.anim.right_out);
         finish();
     }

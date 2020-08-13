@@ -84,6 +84,7 @@ public class List_store_post extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(),CreateShop.class);
+                i.putExtra("edit","edit_store");
                 i.putExtra("edit_store","edit");
                 i.putExtra("shopId",shopId);
                 startActivity(i);
@@ -168,24 +169,24 @@ public class List_store_post extends Fragment {
         model.enqueue(new Callback<APIStorePostResponse>() {
             @Override
             public void onResponse(Call<APIStorePostResponse> call, Response<APIStorePostResponse> response) {
-                if (!response.isSuccessful()){
-                    Log.d("TAG","55"+response.code()+": "+response.errorBody());
+                if (!response.isSuccessful()) {
+                    Log.d("TAG", "55" + response.code() + ": " + response.errorBody());
                 }
-
-                postListItems=response.body().getResults();
-                int count=response.body().getCount();
-                if(count==0)
-                {
-                    progressBar.setVisibility(View.GONE);
-                    no_result.setVisibility(View.VISIBLE);
-                }else{
-                    progressBar.setVisibility(View.GONE);
-                    for(int i=0;i<postListItems.size();i++){
-                        StorePostViewModel item=postListItems.get(i);
-                        Log.e("SL","Post ID "+item.getPost()+" Shop ID "+item.getShop());
+                if (postListItems != null) {
+                    postListItems = response.body().getResults();
+                    int count = response.body().getCount();
+                    if (count == 0) {
+                        progressBar.setVisibility(View.GONE);
+                        no_result.setVisibility(View.VISIBLE);
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        for (int i = 0; i < postListItems.size(); i++) {
+                            StorePostViewModel item = postListItems.get(i);
+                            Log.e("SL", "Post ID " + item.getPost() + " Shop ID " + item.getShop());
+                        }
+                        Adapter_store_post mAdapter = new Adapter_store_post(postListItems);
+                        recyclerView.setAdapter(mAdapter);
                     }
-                    Adapter_store_post mAdapter=new Adapter_store_post(postListItems);
-                    recyclerView.setAdapter(mAdapter);
                 }
             }
 
@@ -245,18 +246,20 @@ public class List_store_post extends Fragment {
                     tv_viewcount.setText(String.valueOf(response.body().getShop_view()));
                     String stphone = response.body().getShop_phonenumber();
                     tv_phone.setText(method(stphone));
-                    String image = response.body().getShop_image();
-                    Glide.with(List_store_post.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            img_user.setImageBitmap(resource);
-                        }
+                    if (response.body().getShop_image() != null) {
+                        String image = response.body().getShop_image();
+                        Glide.with(List_store_post.this).asBitmap().load(image).into(new CustomTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                img_user.setImageBitmap(resource);
+                            }
 
-                        @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
             }
             @Override
