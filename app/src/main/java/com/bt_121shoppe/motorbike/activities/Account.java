@@ -168,6 +168,12 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                     }else{
                         tvUsername.setText(response.body().getFirst_name());
                     }
+
+                    if(response.body().getProfile().getProfile_photo().equals("default"))
+                        Glide.with(getBaseContext()).load(R.drawable.group_2293).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
+                    else
+                        Glide.with(getBaseContext()).load(response.body().getProfile().getProfile_photo()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
+
                     //Log.e("TAG","User group in response "+tvUserGroup.getText());
                     if (group == 3){
                         bnavigation.setVisibility(View.GONE);
@@ -205,10 +211,10 @@ public class Account extends AppCompatActivity  implements TabLayout.OnTabSelect
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user=dataSnapshot.getValue(User.class);
-                    if(user.getImageURL().equals("default"))
-                        Glide.with(getBaseContext()).load(R.drawable.group_2293).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
-                    else
-                        Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
+//                    if(user.getImageURL().equals("default"))
+//                        Glide.with(getBaseContext()).load(R.drawable.group_2293).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
+//                    else
+//                        Glide.with(getBaseContext()).load(user.getImageURL()).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(upload);
                 }
 
                 @Override

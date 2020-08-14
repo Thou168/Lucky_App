@@ -572,10 +572,12 @@ public class CreateShop extends AppCompatActivity {
             }else{
                 try {
                     post1.put("shop_image", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, usershop.getShop_image())));
+                    Log.e("TAGG",ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, usershop.getShop_image())));
                 }catch (IOException ioe){
                     ioe.printStackTrace();
                 }
             }
+
             RequestBody body1=RequestBody.create(ConsumeAPI.MEDIA_TYPE,post1.toString());
             String auth = "Basic " + encode;
             Request request1 = new Request.Builder()

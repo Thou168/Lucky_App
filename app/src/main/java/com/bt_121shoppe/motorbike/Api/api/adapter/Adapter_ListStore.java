@@ -29,6 +29,7 @@ import com.bt_121shoppe.motorbike.activities.Account;
 import com.bt_121shoppe.motorbike.activities.Camera;
 import com.bt_121shoppe.motorbike.activities.DealerStoreActivity;
 import com.bt_121shoppe.motorbike.activities.Home;
+import com.bt_121shoppe.motorbike.loan.model.Province;
 import com.bt_121shoppe.motorbike.models.ShopViewModel;
 import com.bt_121shoppe.motorbike.dealerstores.DealerStoreDetailActivity;
 import com.bt_121shoppe.motorbike.Language.LocaleHapler;
@@ -98,14 +99,33 @@ public class Adapter_ListStore extends RecyclerView.Adapter<Adapter_ListStore.Vi
         final ShopViewModel model = datas.get(position);
         updateView(Paper.book().read("language"),view);
         int shopId = model.getId();
-        //Log.e("Shop","Image "+model.getShop_image());
+        Log.e("Shop","Image "+model.getShop_image());
         String imageUrl="";
         if(model.getShop_image()!=null){
             imageUrl= ConsumeAPI.BASE_URL_IMG+model.getShop_image();
+            //imageUrl=model.getShop_image();
         }
         //Log.e("AD","Shop ID in Adapter "+shopId);
-        view.address.setText(model.getShop_address());
+        Service api=Client.getClient().create(Service.class);
+        retrofit2.Call<Province> call=api.getProvince(model.getShop_province());
+        call.enqueue(new retrofit2.Callback<Province>() {
+            @Override
+            public void onResponse(retrofit2.Call<Province> call, Response<Province> response) {
+                if(response.isSuccessful()){
+                    view.address.setText(response.body().getProvince());
+                }
+
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<Province> call, Throwable t) {
+
+            }
+        });
+
+
         view.shopname.setText(model.getShop_name());
+//        view.shopname.setText(model.getShop_image());
         Glide.with(mContext).load(imageUrl).placeholder(R.drawable.group_2293).thumbnail(0.1f).into(view.img_user);
         view.itemView.setOnClickListener(view1 -> {
             Intent intent=new Intent(mContext, DealerStoreDetailActivity.class);

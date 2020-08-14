@@ -321,7 +321,7 @@ public class Detail_new_post_java extends AppCompatActivity implements TabLayout
                 // this part is optional
                 if (ShareDialog.canShow(ShareLinkContent.class)) {
                     ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                            .setContentUrl(Uri.parse("http://121shoppe.com/detail_product/" + postId))
+                            .setContentUrl(Uri.parse(ConsumeAPI.BASE_URL +"detail_product/" + postId))
                             .build();
                     shareDialog.show(linkContent);
                 }

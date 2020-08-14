@@ -463,6 +463,10 @@ public class Camera extends AppCompatActivity implements BottomChooseCondition.I
 
                 }
             });
+
+//            if(!latlng.isEmpty())
+//                getLocation(false,latlng);
+
         }else {
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             getLocation(true,"");

@@ -1541,6 +1541,24 @@ public class Register extends AppCompatActivity implements BottomChooseGender.It
             public void onResponse(Call call, Response response) throws IOException {
                 String message = response.body().string();
                 Log.d("Response EEEEE", message);
+
+//                //update profile photo
+//                String updateProfilePhototURL = ConsumeAPI.BASE_URL+"api/v1/users/"+pk+"/profilephoto/";
+//                JSONObject data1 = new JSONObject();
+//                JSONObject pro1  = new JSONObject();
+//                //added by Rith
+//                try {
+//                    bitmpaDefault = BitmapFactory.decodeResource(this.getResources(), R.drawable.group_2293);
+//                    if (bitmapProfileImage == null) {
+//                        pro1.put("profile_photo", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmpaDefault)));
+//                    } else {
+//                        pro1.put("profile_photo", ImageUtil.encodeFileToBase64Binary(ImageUtil.createTempFile(this, bitmapProfileImage)));
+//                    }
+//                    data1.put("profile", pro);
+//                }catch (IOException ex){
+//
+//                }
+
                 Convert(message);
             }
         });

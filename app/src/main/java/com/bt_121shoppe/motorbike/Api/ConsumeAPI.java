@@ -9,8 +9,9 @@ public class ConsumeAPI {
 //    public static final String BASE_URL_IMG="http://103.205.26.103:8000";
 //    public static final String BASE_URL="http://192.168.1.239:8000/";
 //    public static final String BASE_URL_IMG="http://192.168.1.239:8000/";
+
 //    public static final String BASE_URL="http://119.15.90.154:8000/";
-//    public static final String BASE_URL_IMG="http://119.15.90.154:8000/";
+//    public static final String BASE_URL_IMG="http://119.15.90.154:8000";
 //    public static final String IMAGE_STRING_PATH=BASE_URL+"media/post_images/";
 //    public static final boolean IS_PRODUCTION=false;
 //    public static final String FB_POST="postssit";
@@ -29,6 +30,16 @@ public class ConsumeAPI {
     public static final String FB_CHAT_TO_ADMIN="chatadmin";
     public static final String FB_Notification="notifications";
     public static final String PREFIX_EMAIL="produser121";
+
+//    public static final String BASE_URL="https://tumpor.live/";
+//    public static final String BASE_URL_IMG="https://tumpor.live";
+//    public static final String IMAGE_STRING_PATH=BASE_URL+"static/media/post_images/";
+//    public static final boolean IS_PRODUCTION=true;
+//    public static final String FB_POST="posts";
+//    public static final String FB_CHAT="chats";
+//    public static final String FB_CHAT_TO_ADMIN="chatadmin";
+//    public static final String FB_Notification="notifications";
+//    public static final String PREFIX_EMAIL="produser121";
 
     public static final MediaType MEDIA_TYPE = MediaType.parse("application/json");
     public static final String DEFAULT_FIREBASE_PASSWORD_ACC="123456";
